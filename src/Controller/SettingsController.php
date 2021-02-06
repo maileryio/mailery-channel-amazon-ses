@@ -2,7 +2,7 @@
 
 namespace Mailery\Channel\Email\Aws\Controller;
 
-use Mailery\Brand\Form\BrandForm;
+use Mailery\Channel\Email\Aws\Form\SettingsForm;
 use Mailery\Brand\Service\BrandCrudService;
 use Mailery\Brand\BrandLocatorInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -69,10 +69,10 @@ class SettingsController
      * @param Request $request
      * @param ValidatorInterface $validator
      * @param FlashInterface $flash
-     * @param BrandForm $form
+     * @param SettingsForm $form
      * @return Response
      */
-    public function aws(Request $request, ValidatorInterface $validator, FlashInterface $flash, BrandForm $form): Response
+    public function aws(Request $request, ValidatorInterface $validator, FlashInterface $flash, SettingsForm $form): Response
     {
         $body = $request->getParsedBody();
         $brand = $this->brandLocator->getBrand();
