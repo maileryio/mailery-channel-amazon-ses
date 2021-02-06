@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Yiisoft\Validator\ValidatorInterface;
 use Yiisoft\Session\Flash\FlashInterface;
 
-class DefaultController
+class SettingsController
 {
     /**
      * @var ViewRenderer
@@ -72,7 +72,7 @@ class DefaultController
      * @param BrandForm $form
      * @return Response
      */
-    public function settings(Request $request, ValidatorInterface $validator, FlashInterface $flash, BrandForm $form): Response
+    public function aws(Request $request, ValidatorInterface $validator, FlashInterface $flash, BrandForm $form): Response
     {
         $body = $request->getParsedBody();
         $brand = $this->brandLocator->getBrand();
@@ -91,6 +91,6 @@ class DefaultController
             );
         }
 
-        return $this->viewRenderer->render('settings', compact('brand', 'form'));
+        return $this->viewRenderer->render('aws', compact('brand', 'form'));
     }
 }
