@@ -24,8 +24,8 @@ final class RouteCollectorServiceProvider extends ServiceProvider
             Group::create(
                 '/brand/{brandId:\d+}',
                 [
-                    Route::methods(['GET', 'POST'], '/settings/amazon-ses', [SettingsController::class, 'ses'])
-                        ->name('/brand/settings/amazon-ses'),
+                    Route::methods(['GET', 'POST'], '/settings/aws', [SettingsController::class, 'ses'])
+                        ->name('/brand/settings/aws'),
                 ]
             )
         );

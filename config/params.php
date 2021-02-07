@@ -9,15 +9,25 @@ return [
         ],
     ],
 
+    'maileryio/mailery-menu-sidebar' => [
+        'items' => [
+            'settings' => [
+                'activeRouteNames' => [
+                    '/brand/settings/aws',
+                ],
+            ],
+        ],
+    ],
+
     'maileryio/mailery-brand' => [
         'settings-menu' => [
             'items' => [
                 'amazon-ses-settings' => [
                     'label' => static function () {
-                        return 'Amazon SES Credentials';
+                        return 'Amazon Web Services';
                     },
                     'url' => static function (UrlGeneratorInterface $urlGenerator) {
-                        return $urlGenerator->generate('/brand/settings/amazon-ses');
+                        return $urlGenerator->generate('/brand/settings/aws');
                     },
                 ],
             ],

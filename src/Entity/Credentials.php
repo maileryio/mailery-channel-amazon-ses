@@ -2,6 +2,7 @@
 
 namespace Mailery\Channel\Email\Amazon\Entity;
 
+use Mailery\Brand\Entity\Brand;
 use Mailery\Common\Entity\RoutableEntityInterface;
 
 /**
@@ -20,10 +21,22 @@ class Credentials implements RoutableEntityInterface
     protected $id;
 
     /**
+     * @Cycle\Annotated\Annotation\Column(type = "string(255)")
+     * @var string
+     */
+    protected $key;
+
+    /**
+     * @Cycle\Annotated\Annotation\Column(type = "string(255)")
+     * @var string
+     */
+    protected $secret;
+
+    /**
      * @Cycle\Annotated\Annotation\Column(type = "string(32)")
      * @var string
      */
-    protected $name;
+    protected $region;
 
     /**
      * @Cycle\Annotated\Annotation\Relation\BelongsTo(target = "Mailery\Brand\Entity\Brand", nullable = false)
@@ -61,18 +74,56 @@ class Credentials implements RoutableEntityInterface
     /**
      * @return string
      */
-    public function getName(): string
+    public function getKey(): string
     {
-        return $this->name;
+        return $this->key;
     }
 
     /**
-     * @param string $name
+     * @param string $key
      * @return self
      */
-    public function setName(string $name): self
+    public function setKey(string $key): self
     {
-        $this->name = $name;
+        $this->key = $key;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecret(): string
+    {
+        return $this->secret;
+    }
+
+    /**
+     * @param string $secret
+     * @return self
+     */
+    public function setSecret(string $secret): self
+    {
+        $this->secret = $secret;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegion(): string
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param string $region
+     * @return self
+     */
+    public function setRegion(string $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
@@ -101,7 +152,7 @@ class Credentials implements RoutableEntityInterface
      */
     public function getEditRouteName(): ?string
     {
-        return '/brand/settings/amazon-ses';
+        return '/brand/settings/aws';
     }
 
     /**
@@ -117,7 +168,7 @@ class Credentials implements RoutableEntityInterface
      */
     public function getViewRouteName(): ?string
     {
-        return '/brand/settings/amazon-ses';
+        return '/brand/settings/aws';
     }
 
     /**

@@ -26,7 +26,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 <div class="row">
     <div class="col-6">
         <?= Form::widget()
-            ->action($urlGenerator->generate('/brand/settings/amazon-ses'))
+            ->action($urlGenerator->generate('/brand/settings/aws'))
             ->options(
                 [
                     'id' => 'form-brand',
@@ -36,8 +36,16 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
             )
             ->begin(); ?>
 
+        <h3 class="h6">Amazon Web Services Credentials</h3>
+        <div class="mb-4"></div>
+
         <?= $field->config($form, 'key'); ?>
         <?= $field->config($form, 'secret'); ?>
+
+        <div class="mb-5"></div>
+        <h3 class="h6">Amazon SES Region</h3>
+        <div class="mb-4"></div>
+
         <?= $field->config($form, 'region')
             ->dropDownList($form->getRegionListOptions()); ?>
 

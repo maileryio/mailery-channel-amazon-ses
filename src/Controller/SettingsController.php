@@ -3,7 +3,9 @@
 namespace Mailery\Channel\Email\Amazon\Controller;
 
 use Mailery\Channel\Email\Amazon\Form\SettingsForm;
-use Mailery\Brand\Service\BrandCrudService;
+use Mailery\Channel\Email\Amazon\Service\CredentialsCrudService;
+use Mailery\Channel\Email\Amazon\Repository\CredentialsRepository;
+use Mailery\Channel\Email\Amazon\ValueObject\CredentialsValueObject;
 use Mailery\Brand\BrandLocatorInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -32,9 +34,14 @@ class SettingsController
     private UrlGenerator $urlGenerator;
 
     /**
-     * @var BrandCrudService
+     * @var CredentialsCrudService
      */
-    private BrandCrudService $BrandCrudService;
+    private CredentialsCrudService $credentialsCrudService;
+
+    /**
+     * @var CredentialsRepository
+     */
+    private CredentialsRepository $credentialsRepository;
 
     /**
      * @var BrandLocatorInterface
@@ -45,14 +52,16 @@ class SettingsController
      * @param ViewRenderer $viewRenderer
      * @param ResponseFactory $responseFactory
      * @param UrlGenerator $urlGenerator
-     * @param BrandCrudService $BrandCrudService
+     * @param CredentialsCrudService $credentialsCrudService
+     * @param CredentialsRepository $credentialsRepository
      * @param BrandLocatorInterface $brandLocator
      */
     public function __construct(
         ViewRenderer $viewRenderer,
         ResponseFactory $responseFactory,
         UrlGenerator $urlGenerator,
-        BrandCrudService $BrandCrudService,
+        CredentialsCrudService $credentialsCrudService,
+        CredentialsRepository $credentialsRepository,
         BrandLocatorInterface $brandLocator
     ) {
         $this->viewRenderer = $viewRenderer
@@ -61,7 +70,8 @@ class SettingsController
 
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
-        $this->BrandCrudService = $BrandCrudService;
+        $this->credentialsCrudService = $credentialsCrudService;
+        $this->credentialsRepository = $credentialsRepository;
         $this->brandLocator = $brandLocator;
     }
 
@@ -77,10 +87,23 @@ class SettingsController
         $body = $request->getParsedBody();
         $brand = $this->brandLocator->getBrand();
 
-        $form = $form->withBrand($brand);
+        $credentials = $this->credentialsRepository
+            ->withBrand($brand)
+            ->findOne();
+
+        if ($credentials !== null) {
+            $form = $form->withCredentials($credentials);
+        }
 
         if (($request->getMethod() === Method::POST) && $form->load($body) && $form->validate($validator)) {
-            $this->BrandCrudService->update($brand, $form);
+            $valueObject = CredentialsValueObject::fromForm($form)
+                ->withBrand($brand);
+
+            if ($credentials !== null) {
+                $this->credentialsCrudService->update($credentials, $valueObject);
+            } else {
+                $this->credentialsCrudService->create($valueObject);
+            }
 
             $flash->add(
                 'success',
@@ -91,6 +114,6 @@ class SettingsController
             );
         }
 
-        return $this->viewRenderer->render('ses', compact('brand', 'form'));
+        return $this->viewRenderer->render('ses', compact('form'));
     }
 }

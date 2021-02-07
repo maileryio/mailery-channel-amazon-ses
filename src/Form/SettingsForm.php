@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Mailery\Channel\Email\Amazon\Form;
 
-use Mailery\Brand\Entity\Brand;
+use Mailery\Channel\Email\Amazon\Entity\Credentials;
 use Yiisoft\Form\FormModel;
 use Yiisoft\Form\HtmlOptions\RequiredHtmlOptions;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\InRange;
-use Mailery\Brand\Repository\BrandRepository;
 use Mailery\Channel\Email\Amazon\Model\RegionList;
+use Mailery\Channel\Email\Amazon\Validator\CheckSesConnection;
 
 class SettingsForm extends FormModel
 {
@@ -30,56 +30,29 @@ class SettingsForm extends FormModel
     private ?string $region = null;
 
     /**
-     * @var Brand
-     */
-    private ?Brand $brand = null;
-
-    /**
-     * @var BrandRepository
-     */
-    private BrandRepository $brandRepo;
-
-    /**
      * @var RegionList
      */
     private RegionList $regionList;
 
     /**
-     * @param BrandRepository $brandRepo
      * @param RegionList $regionList
      */
-    public function __construct(BrandRepository $brandRepo, RegionList $regionList)
+    public function __construct(RegionList $regionList)
     {
-        $this->brandRepo = $brandRepo;
         $this->regionList = $regionList;
         parent::__construct();
     }
 
     /**
-     * @param string $name
-     * @param type $value
-     * @return void
-     */
-    public function setAttribute(string $name, $value): void
-    {
-        if ($name === 'channels') {
-            $this->$name = array_filter((array) $value);
-        } else {
-            parent::setAttribute($name, $value);
-        }
-    }
-
-    /**
-     * @param Brand $brand
+     * @param Credentials $credentials
      * @return self
      */
-    public function withBrand(Brand $brand): self
+    public function withCredentials(Credentials $credentials): self
     {
         $new = clone $this;
-        $new->brand = $brand;
-//        $new->name = $brand->getName();
-//        $new->description = $brand->getDescription();
-//        $new->channels = $brand->getChannels();
+        $new->key = $credentials->getKey();
+        $new->secret = $credentials->getSecret();
+        $new->region = $credentials->getRegion();
 
         return $new;
     }
@@ -90,9 +63,9 @@ class SettingsForm extends FormModel
     public function attributeLabels(): array
     {
         return [
-            'key' => 'AWS Access Key',
-            'secret' => 'AWS Access Secret',
-            'region' => 'Amazon SES region',
+            'key' => 'AWS Access Key ID',
+            'secret' => 'AWS Secret Access Key',
+            'region' => 'Your Amazon SES region',
         ];
     }
 
@@ -129,6 +102,7 @@ class SettingsForm extends FormModel
             'region' => [
                 new RequiredHtmlOptions(new Required()),
                 new InRange(array_keys($this->getRegionListOptions())),
+                new CheckSesConnection(),
             ],
         ];
     }
