@@ -11,7 +11,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Mailery AWS Email channel tests">
+        <testsuite name="Mailery Amazon SES Email channel tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

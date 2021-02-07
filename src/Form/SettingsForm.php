@@ -2,20 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mailery\Channel\Email\Aws\Form;
+namespace Mailery\Channel\Email\Amazon\Form;
 
 use Mailery\Brand\Entity\Brand;
 use Yiisoft\Form\FormModel;
 use Yiisoft\Form\HtmlOptions\RequiredHtmlOptions;
-use Yiisoft\Form\HtmlOptions\HasLengthHtmlOptions;
-use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule\Required;
-use Yiisoft\Validator\Rule\Callback;
-use Yiisoft\Validator\Rule\HasLength;
 use Yiisoft\Validator\Rule\InRange;
 use Mailery\Brand\Repository\BrandRepository;
-use Mailery\Channel\Model\ChannelList;
-use Mailery\Channel\ChannelInterface;
+use Mailery\Channel\Email\Amazon\Model\RegionList;
 
 class SettingsForm extends FormModel
 {
@@ -45,18 +40,18 @@ class SettingsForm extends FormModel
     private BrandRepository $brandRepo;
 
     /**
-     * @var ChannelList
+     * @var RegionList
      */
-    private ChannelList $channelList;
+    private RegionList $regionList;
 
     /**
      * @param BrandRepository $brandRepo
-     * @param ChannelList $channelList
+     * @param RegionList $regionList
      */
-    public function __construct(BrandRepository $brandRepo, ChannelList $channelList)
+    public function __construct(BrandRepository $brandRepo, RegionList $regionList)
     {
         $this->brandRepo = $brandRepo;
-        $this->channelList = $channelList;
+        $this->regionList = $regionList;
         parent::__construct();
     }
 
@@ -82,9 +77,9 @@ class SettingsForm extends FormModel
     {
         $new = clone $this;
         $new->brand = $brand;
-        $new->name = $brand->getName();
-        $new->description = $brand->getDescription();
-        $new->channels = $brand->getChannels();
+//        $new->name = $brand->getName();
+//        $new->description = $brand->getDescription();
+//        $new->channels = $brand->getChannels();
 
         return $new;
     }
@@ -95,9 +90,19 @@ class SettingsForm extends FormModel
     public function attributeLabels(): array
     {
         return [
-            'name' => 'Brand name',
-            'description' => 'Description (optional)',
-            'channels' => 'Channels for this brand',
+            'key' => 'AWS Access Key',
+            'secret' => 'AWS Access Secret',
+            'region' => 'Amazon SES region',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeHints(): array
+    {
+        return [
+            'region' => 'Select your Amazon SES region. Please select the same region as what\'s set in your Amazon SES console in the region selection drop down menu at the top right.',
         ];
     }
 
@@ -106,7 +111,7 @@ class SettingsForm extends FormModel
      */
     public function formName(): string
     {
-        return 'BrandForm';
+        return 'SettingsForm';
     }
 
     /**
@@ -115,23 +120,15 @@ class SettingsForm extends FormModel
     public function rules(): array
     {
         return [
-            'name' => [
+            'key' => [
                 new RequiredHtmlOptions(new Required()),
-                new HasLengthHtmlOptions((new HasLength())->min(4)->max(32)),
-                new Callback(function ($value) {
-                    $result = new Result();
-                    $brand = $this->brandRepo->findByName($value, $this->brand);
-
-                    if ($brand !== null) {
-                        $result->addError('This brand name already exists.');
-                    }
-
-                    return $result;
-                })
             ],
-            'channels' => [
+            'secret' => [
                 new RequiredHtmlOptions(new Required()),
-                new InRange(array_keys($this->getChannelListOptions())),
+            ],
+            'region' => [
+                new RequiredHtmlOptions(new Required()),
+                new InRange(array_keys($this->getRegionListOptions())),
             ],
         ];
     }
@@ -139,14 +136,8 @@ class SettingsForm extends FormModel
     /**
      * @return array
      */
-    public function getChannelListOptions(): array
+    public function getRegionListOptions(): array
     {
-        $listOptions = [];
-        foreach ($this->channelList as $channel) {
-            /** @var ChannelInterface $channel */
-            $listOptions[$channel->getKey()] = $channel->getLabel();
-        }
-
-        return $listOptions;
+        return $this->regionList->toArray();
     }
 }

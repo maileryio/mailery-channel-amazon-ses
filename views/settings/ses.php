@@ -8,7 +8,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 /** @var Yiisoft\Yii\WebView $this */
 /** @var Psr\Http\Message\ServerRequestInterface $request */
 /** @var Mailery\Brand\Entity\Brand $brand */
-/** @var Mailery\Channel\Email\Aws\Form\SettingsForm $form */
+/** @var Mailery\Channel\Email\Amazon\Form\SettingsForm $form */
 /** @var string $csrf */
 ?>
 
@@ -26,7 +26,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 <div class="row">
     <div class="col-6">
         <?= Form::widget()
-            ->action($urlGenerator->generate('/brand/settings/basic'))
+            ->action($urlGenerator->generate('/brand/settings/amazon-ses'))
             ->options(
                 [
                     'id' => 'form-brand',
@@ -36,14 +36,10 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
             )
             ->begin(); ?>
 
-        <?= $field->config($form, 'name'); ?>
-        <?= $field->config($form, 'description')
-            ->textArea([
-                'class' => 'form-control textarea',
-                'rows' => 2,
-            ]); ?>
-        <?= $field->config($form, 'channels')
-            ->checkboxList($form->getChannelListOptions()); ?>
+        <?= $field->config($form, 'key'); ?>
+        <?= $field->config($form, 'secret'); ?>
+        <?= $field->config($form, 'region')
+            ->dropDownList($form->getRegionListOptions()); ?>
 
         <?= Html::submitButton(
             'Save',

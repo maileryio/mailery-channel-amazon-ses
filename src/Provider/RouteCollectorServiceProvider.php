@@ -1,13 +1,13 @@
 <?php
 
-namespace Mailery\Channel\Email\Aws\Provider;
+namespace Mailery\Channel\Email\Amazon\Provider;
 
 use Yiisoft\Di\Container;
 use Yiisoft\Di\Support\ServiceProvider;
 use Yiisoft\Router\RouteCollectorInterface;
 use Yiisoft\Router\Group;
 use Yiisoft\Router\Route;
-use Mailery\Channel\Email\Aws\Controller\SettingsController;
+use Mailery\Channel\Email\Amazon\Controller\SettingsController;
 
 final class RouteCollectorServiceProvider extends ServiceProvider
 {
@@ -24,8 +24,8 @@ final class RouteCollectorServiceProvider extends ServiceProvider
             Group::create(
                 '/brand/{brandId:\d+}',
                 [
-                    Route::methods(['GET', 'POST'], '/settings/aws', [SettingsController::class, 'aws'])
-                        ->name('/brand/settings/aws'),
+                    Route::methods(['GET', 'POST'], '/settings/amazon-ses', [SettingsController::class, 'ses'])
+                        ->name('/brand/settings/amazon-ses'),
                 ]
             )
         );

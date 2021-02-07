@@ -1,25 +1,26 @@
 {
-    "name": "maileryio/mailery-channel-email-aws",
+    "name": "maileryio/mailery-channel-email-amazon-ses",
     "type": "library",
-    "description": "AWS Email channel module for Mailery Platform",
+    "description": "Amazon SES Email channel module for Mailery Platform",
     "keywords": [
         "mail",
         "mailer",
         "mailinig",
-        "aws",
+        "amazon",
         "ses"
     ],
-    "homepage": "https://github.com/maileryio/mailery-channel-email-aws",
+    "homepage": "https://github.com/maileryio/mailery-channel-email-amazon-ses",
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/maileryio/mailery-channel-email-aws",
-        "issues": "https://github.com/maileryio/mailery-channel-email-aws/issues",
-        "wiki": "https://github.com/maileryio/mailery-channel-email-aws/wiki"
+        "source": "https://github.com/maileryio/mailery-channel-email-amazon-ses",
+        "issues": "https://github.com/maileryio/mailery-channel-email-amazon-ses/issues",
+        "wiki": "https://github.com/maileryio/mailery-channel-email-amazon-ses/wiki"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": "^7.4",
+        "aws/aws-sdk-php": "^3.173",
         "foxy/foxy": "^1.0",
         "maileryio/mailery-channel-email": "dev-master",
         "yiisoft/form": "^1.0@dev"
@@ -31,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mailery\\Channel\\Email\\Aws\\": "src"
+            "Mailery\\Channel\\Email\\Amazon\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mailery\\Channel\\Email\\Aws\\Tests\\": "tests"
+            "Mailery\\Channel\\Email\\Amazon\\Tests\\": "tests"
         }
     },
     "scripts": {

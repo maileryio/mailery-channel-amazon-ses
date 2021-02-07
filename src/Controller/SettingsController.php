@@ -1,8 +1,8 @@
 <?php
 
-namespace Mailery\Channel\Email\Aws\Controller;
+namespace Mailery\Channel\Email\Amazon\Controller;
 
-use Mailery\Channel\Email\Aws\Form\SettingsForm;
+use Mailery\Channel\Email\Amazon\Form\SettingsForm;
 use Mailery\Brand\Service\BrandCrudService;
 use Mailery\Brand\BrandLocatorInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -56,7 +56,7 @@ class SettingsController
         BrandLocatorInterface $brandLocator
     ) {
         $this->viewRenderer = $viewRenderer
-            ->withController($this)
+            ->withControllerName('settings')
             ->withViewBasePath(dirname(dirname(__DIR__)) . '/views');
 
         $this->responseFactory = $responseFactory;
@@ -72,7 +72,7 @@ class SettingsController
      * @param SettingsForm $form
      * @return Response
      */
-    public function aws(Request $request, ValidatorInterface $validator, FlashInterface $flash, SettingsForm $form): Response
+    public function ses(Request $request, ValidatorInterface $validator, FlashInterface $flash, SettingsForm $form): Response
     {
         $body = $request->getParsedBody();
         $brand = $this->brandLocator->getBrand();
@@ -91,6 +91,6 @@ class SettingsController
             );
         }
 
-        return $this->viewRenderer->render('aws', compact('brand', 'form'));
+        return $this->viewRenderer->render('ses', compact('brand', 'form'));
     }
 }
