@@ -22,7 +22,7 @@ return [
     'maileryio/mailery-brand' => [
         'settings-menu' => [
             'items' => [
-                'amazon-ses-services' => [
+                'aws' => [
                     'label' => static function () {
                         return 'Amazon Web Services';
                     },
