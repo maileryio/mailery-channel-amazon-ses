@@ -21,13 +21,12 @@ final class RouteCollectorServiceProvider extends ServiceProvider
         $collector = $container->get(RouteCollectorInterface::class);
 
         $collector->addGroup(
-            Group::create(
-                '/brand/{brandId:\d+}',
-                [
-                    Route::methods(['GET', 'POST'], '/settings/aws', [SettingsController::class, 'ses'])
-                        ->name('/brand/settings/aws'),
-                ]
-            )
+            Group::create('/brand/{brandId:\d+}')
+                ->routes(
+                    Route::methods(['GET', 'POST'], '/settings/aws')
+                        ->name('/brand/settings/aws')
+                        ->action([SettingsController::class, 'ses'])
+                )
         );
     }
 }
