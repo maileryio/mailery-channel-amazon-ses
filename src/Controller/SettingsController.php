@@ -95,7 +95,7 @@ class SettingsController
             $form = $form->withCredentials($credentials);
         }
 
-        if (($request->getMethod() === Method::POST) && $form->load($body) && $validator->validate($form, $form->getRules())) {
+        if (($request->getMethod() === Method::POST) && $form->load($body) && $validator->validate($form)) {
             $valueObject = CredentialsValueObject::fromForm($form)
                 ->withBrand($brand);
 
