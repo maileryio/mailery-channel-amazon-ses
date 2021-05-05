@@ -92,7 +92,7 @@ class SettingsController
             ->findOne();
 
         if ($credentials !== null) {
-            $form = $form->withCredentials($credentials);
+            $form = $form->withEntity($credentials);
         }
 
         if (($request->getMethod() === Method::POST) && $form->load($body) && $validator->validate($form)) {

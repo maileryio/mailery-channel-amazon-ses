@@ -47,7 +47,7 @@ class SettingsForm extends FormModel
      * @param Credentials $credentials
      * @return self
      */
-    public function withCredentials(Credentials $credentials): self
+    public function withEntity(Credentials $credentials): self
     {
         $new = clone $this;
         $new->key = $credentials->getKey();
@@ -72,7 +72,7 @@ class SettingsForm extends FormModel
     /**
      * @return array
      */
-    public function attributeHints(): array
+    public function getAttributeHints(): array
     {
         return [
             'region' => 'Select your Amazon SES region. Please select the same region as what\'s set in your Amazon SES console in the region selection drop down menu at the top right.',
@@ -80,17 +80,9 @@ class SettingsForm extends FormModel
     }
 
     /**
-     * @return string
-     */
-    public function formName(): string
-    {
-        return 'SettingsForm';
-    }
-
-    /**
      * @return array
      */
-    public function rules(): array
+    public function getRules(): array
     {
         return [
             'key' => [

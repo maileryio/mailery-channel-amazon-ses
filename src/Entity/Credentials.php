@@ -148,17 +148,17 @@ class Credentials implements RoutableEntityInterface
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
-    public function getEditRouteName(): ?string
+    public function getIndexRouteName(): ?string
     {
         return '/brand/settings/aws';
     }
 
     /**
-     * @return array
+     * @inheritdoc
      */
-    public function getEditRouteParams(): array
+    public function getIndexRouteParams(): array
     {
         return ['brandId' => $this->getId()];
     }
@@ -177,5 +177,37 @@ class Credentials implements RoutableEntityInterface
     public function getViewRouteParams(): array
     {
         return ['brandId' => $this->getId()];
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEditRouteName(): ?string
+    {
+        return '/brand/settings/aws';
+    }
+
+    /**
+     * @return array
+     */
+    public function getEditRouteParams(): array
+    {
+        return ['brandId' => $this->getId()];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDeleteRouteName(): ?string
+    {
+        throw new \RuntimeException('Not implemented');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDeleteRouteParams(): array
+    {
+        throw new \RuntimeException('Not implemented');
     }
 }
