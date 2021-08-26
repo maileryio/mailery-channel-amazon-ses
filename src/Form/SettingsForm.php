@@ -86,15 +86,15 @@ class SettingsForm extends FormModel
     {
         return [
             'key' => [
-                new RequiredHtmlOptions(new Required()),
+                new RequiredHtmlOptions(Required::rule()),
             ],
             'secret' => [
-                new RequiredHtmlOptions(new Required()),
+                new RequiredHtmlOptions(Required::rule()),
             ],
             'region' => [
-                new RequiredHtmlOptions(new Required()),
-                new InRange(array_keys($this->getRegionListOptions())),
-                new CheckSesConnection(),
+                new RequiredHtmlOptions(Required::rule()),
+                InRange::rule(array_keys($this->getRegionListOptions())),
+                CheckSesConnection::rule(),
             ],
         ];
     }

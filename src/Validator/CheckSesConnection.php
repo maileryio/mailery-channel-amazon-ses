@@ -12,6 +12,15 @@ use Aws\Credentials\Credentials as AwsCredentials;
 class CheckSesConnection extends Rule
 {
     /**
+     * @return \self
+     */
+    public static function rule(): self
+    {
+        $rule = new self();
+        return $rule;
+    }
+
+    /**
      * @param type $value
      * @param ValidationContext $context
      * @return Result
