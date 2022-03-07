@@ -34,10 +34,9 @@ class CredentialsValueObject
     public static function fromForm(SettingsForm $form): self
     {
         $new = new self();
-
-        $new->key = $form->getAttributeValue('key');
-        $new->secret = $form->getAttributeValue('secret');
-        $new->region = $form->getAttributeValue('region');
+        $new->key = $form->getKey();
+        $new->secret = $form->getSecret();
+        $new->region = $form->getRegion();
 
         return $new;
     }

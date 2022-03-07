@@ -35,7 +35,7 @@ class CheckSesConnection extends Rule
                 $context->getDataSet()->getAttributeValue('key'),
                 $context->getDataSet()->getAttributeValue('secret')
             ),
-            'http'    => [
+            'http' => [
                 'connect_timeout' => 5,
             ],
         ]);

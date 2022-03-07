@@ -58,6 +58,30 @@ class SettingsForm extends FormModel
     }
 
     /**
+     * @return string|null
+     */
+    public function getKey(): ?string
+    {
+        return $this->key;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSecret(): ?string
+    {
+        return $this->secret;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    /**
      * @return array
      */
     public function getAttributeLabels(): array
