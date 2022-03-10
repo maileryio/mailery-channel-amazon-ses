@@ -4,7 +4,7 @@ use Yiisoft\Router\UrlGeneratorInterface;
 
 return [
     'yiisoft/yii-cycle' => [
-        'annotated-entity-paths' => [
+        'entity-paths' => [
             '@vendor/maileryio/mailery-channel-email-amazon-ses/src/Entity',
         ],
     ],
