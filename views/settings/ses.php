@@ -9,7 +9,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 /** @var Psr\Http\Message\ServerRequestInterface $request */
 /** @var Mailery\Brand\Entity\Brand $brand */
 /** @var Mailery\Channel\Email\Amazon\Form\SettingsForm $form */
-/** @var string $csrf */
+/** @var Yiisoft\Yii\View\Csrf $csrf */
 ?>
 
 <?= ContentDecorator::widget()
