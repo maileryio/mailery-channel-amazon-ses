@@ -2,13 +2,12 @@
 
 use Mailery\Web\Widget\FlashMessage;
 use Yiisoft\Form\Widget\Form;
-use Yiisoft\Html\Html;
 use Yiisoft\Yii\Widgets\ContentDecorator;
 
 /** @var Yiisoft\Yii\WebView $this */
 /** @var Psr\Http\Message\ServerRequestInterface $request */
 /** @var Mailery\Brand\Entity\Brand $brand */
-/** @var Mailery\Channel\Email\Amazon\Form\SettingsForm $form */
+/** @var \Yiisoft\Form\FormModelInterface $form */
 /** @var Yiisoft\Yii\View\Csrf $csrf */
 ?>
 
@@ -26,35 +25,28 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 <div class="row">
     <div class="col-12 col-xl-4">
         <?= Form::widget()
-            ->action($urlGenerator->generate('/brand/settings/aws'))
-            ->options(
-                [
-                    'id' => 'form-brand',
-                    'csrf' => $csrf,
-                    'enctype' => 'multipart/form-data',
-                ]
-            )
-            ->begin(); ?>
+                ->action($urlGenerator->generate('/brand/settings/aws'))
+                ->csrf($csrf)
+                ->id('channel-email-amazon-ses-form')
+                ->begin(); ?>
 
         <h3 class="h6">Amazon Web Services Credentials</h3>
         <div class="mb-4"></div>
 
-        <?= $field->config($form, 'key'); ?>
-        <?= $field->config($form, 'secret'); ?>
+        <?= $field->text($form, 'key')
+                ->autofocus(); ?>
+
+        <?= $field->text($form, 'key'); ?>
 
         <div class="mb-5"></div>
         <h3 class="h6">Amazon SES Region</h3>
         <div class="mb-4"></div>
 
-        <?= $field->config($form, 'region')
-            ->dropDownList($form->getRegionListOptions()); ?>
+        <?= $field->select($form, 'region', ['items()' => [$form->getRegionListOptions()]]); ?>
 
-        <?= Html::submitButton(
-            'Save',
-            [
-                'class' => 'btn btn-primary float-right mt-2'
-            ]
-        ); ?>
+        <?= $field->submitButton()
+                ->class('btn btn-primary float-right mt-2')
+                ->value('Save'); ?>
 
         <?= Form::end(); ?>
     </div>

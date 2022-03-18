@@ -6,20 +6,32 @@ use Cycle\ORM\ORMInterface;
 use Mailery\Channel\Email\Amazon\Entity\Credentials;
 use Mailery\Channel\Email\Amazon\ValueObject\CredentialsValueObject;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
+use Mailery\Brand\Entity\Brand;
 
 class CredentialsCrudService
 {
     /**
-     * @var ORMInterface
+     * @var Brand
      */
-    private ORMInterface $orm;
+    private Brand $brand;
 
     /**
      * @param ORMInterface $orm
      */
-    public function __construct(ORMInterface $orm)
+    public function __construct(
+        private ORMInterface $orm
+    ) {}
+
+    /**
+     * @param Brand $brand
+     * @return self
+     */
+    public function withBrand(Brand $brand): self
     {
-        $this->orm = $orm;
+        $new = clone $this;
+        $new->brand = $brand;
+
+        return $new;
     }
 
     /**
@@ -29,10 +41,10 @@ class CredentialsCrudService
     public function create(CredentialsValueObject $valueObject): Credentials
     {
         $credentials = (new Credentials())
+            ->setBrand($this->brand)
             ->setKey($valueObject->getKey())
             ->setSecret($valueObject->getSecret())
             ->setRegion($valueObject->getRegion())
-            ->setBrand($valueObject->getBrand())
         ;
 
         (new EntityWriter($this->orm))->write([$credentials]);

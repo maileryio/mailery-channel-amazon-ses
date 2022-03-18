@@ -11,6 +11,6 @@ return [
         ->routes(
             Route::methods(['GET', 'POST'], '/settings/aws')
                 ->name('/brand/settings/aws')
-                ->action([SettingsController::class, 'ses'])
+                ->action([SettingsController::class, 'index'])
         )
 ];

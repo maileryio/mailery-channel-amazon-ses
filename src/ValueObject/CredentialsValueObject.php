@@ -2,7 +2,6 @@
 
 namespace Mailery\Channel\Email\Amazon\ValueObject;
 
-use Mailery\Brand\Entity\Brand;
 use Mailery\Channel\Email\Amazon\Form\SettingsForm;
 
 class CredentialsValueObject
@@ -21,11 +20,6 @@ class CredentialsValueObject
      * @var string
      */
     private string $region;
-
-    /**
-     * @var Brand
-     */
-    private Brand $brand;
 
     /**
      * @param TemplateForm $form
@@ -63,25 +57,5 @@ class CredentialsValueObject
     public function getRegion(): string
     {
         return $this->region;
-    }
-
-    /**
-     * @return Brand
-     */
-    public function getBrand(): Brand
-    {
-        return $this->brand;
-    }
-
-    /**
-     * @param Brand $brand
-     * @return self
-     */
-    public function withBrand(Brand $brand): self
-    {
-        $new = clone $this;
-        $new->brand = $brand;
-
-        return $new;
     }
 }

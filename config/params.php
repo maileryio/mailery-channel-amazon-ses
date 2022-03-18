@@ -1,11 +1,22 @@
 <?php
 
 use Yiisoft\Router\UrlGeneratorInterface;
+use Mailery\Channel\Email\Amazon\Entity\Credentials;
 
 return [
     'yiisoft/yii-cycle' => [
         'entity-paths' => [
             '@vendor/maileryio/mailery-channel-email-amazon-ses/src/Entity',
+        ],
+    ],
+
+    'maileryio/mailery-activity-log' => [
+        'entity-groups' => [
+            'channel' => [
+                'entities' => [
+                    Credentials::class,
+                ],
+            ],
         ],
     ],
 
@@ -35,7 +46,7 @@ return [
     ],
 
     'maileryio/mailery-channel-email-amazon-ses' => [
-        'regions' => [
+        'elements' => [
             'us-east-2' => 'US East (Ohio)',
             'us-east-1' => 'US East (N. Virginia)',
             'us-west-1' => 'US West (N. California)',

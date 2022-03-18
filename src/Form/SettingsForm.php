@@ -6,7 +6,6 @@ namespace Mailery\Channel\Email\Amazon\Form;
 
 use Mailery\Channel\Email\Amazon\Entity\Credentials;
 use Yiisoft\Form\FormModel;
-use Yiisoft\Form\HtmlOptions\RequiredHtmlOptions;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\InRange;
 use Mailery\Channel\Email\Amazon\Model\RegionList;
@@ -30,16 +29,11 @@ class SettingsForm extends FormModel
     private ?string $region = null;
 
     /**
-     * @var RegionList
-     */
-    private RegionList $regionList;
-
-    /**
      * @param RegionList $regionList
      */
-    public function __construct(RegionList $regionList)
-    {
-        $this->regionList = $regionList;
+    public function __construct(
+        private RegionList $regionList
+    ) {
         parent::__construct();
     }
 
@@ -110,13 +104,13 @@ class SettingsForm extends FormModel
     {
         return [
             'key' => [
-                new RequiredHtmlOptions(Required::rule()),
+                Required::rule(),
             ],
             'secret' => [
-                new RequiredHtmlOptions(Required::rule()),
+                Required::rule(),
             ],
             'region' => [
-                new RequiredHtmlOptions(Required::rule()),
+                Required::rule(),
                 InRange::rule(array_keys($this->getRegionListOptions())),
                 CheckSesConnection::rule(),
             ],

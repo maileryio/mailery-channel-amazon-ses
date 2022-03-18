@@ -10,69 +10,29 @@ use Mailery\Brand\BrandLocatorInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Yiisoft\Http\Method;
-use Yiisoft\Router\UrlGeneratorInterface as UrlGenerator;
 use Yiisoft\Yii\View\ViewRenderer;
-use Psr\Http\Message\ResponseFactoryInterface as ResponseFactory;
 use Yiisoft\Validator\ValidatorInterface;
 use Yiisoft\Session\Flash\FlashInterface;
 
 class SettingsController
 {
     /**
-     * @var ViewRenderer
-     */
-    private ViewRenderer $viewRenderer;
-
-    /**
-     * @var ResponseFactory
-     */
-    private ResponseFactory $responseFactory;
-
-    /**
-     * @var UrlGenerator
-     */
-    private UrlGenerator $urlGenerator;
-
-    /**
-     * @var CredentialsCrudService
-     */
-    private CredentialsCrudService $credentialsCrudService;
-
-    /**
-     * @var CredentialsRepository
-     */
-    private CredentialsRepository $credentialsRepository;
-
-    /**
-     * @var BrandLocatorInterface
-     */
-    private BrandLocatorInterface $brandLocator;
-
-    /**
      * @param ViewRenderer $viewRenderer
-     * @param ResponseFactory $responseFactory
-     * @param UrlGenerator $urlGenerator
      * @param CredentialsCrudService $credentialsCrudService
-     * @param CredentialsRepository $credentialsRepository
+     * @param CredentialsRepository $credentialsRepo
      * @param BrandLocatorInterface $brandLocator
      */
     public function __construct(
-        ViewRenderer $viewRenderer,
-        ResponseFactory $responseFactory,
-        UrlGenerator $urlGenerator,
-        CredentialsCrudService $credentialsCrudService,
-        CredentialsRepository $credentialsRepository,
+        private ViewRenderer $viewRenderer,
+        private CredentialsCrudService $credentialsCrudService,
+        private CredentialsRepository $credentialsRepo,
         BrandLocatorInterface $brandLocator
     ) {
         $this->viewRenderer = $viewRenderer
             ->withControllerName('settings')
             ->withViewPath(dirname(dirname(__DIR__)) . '/views');
 
-        $this->responseFactory = $responseFactory;
-        $this->urlGenerator = $urlGenerator;
-        $this->credentialsCrudService = $credentialsCrudService;
-        $this->credentialsRepository = $credentialsRepository;
-        $this->brandLocator = $brandLocator;
+        $this->credentialsRepo = $this->credentialsRepo->withBrand($brandLocator->getBrand());
     }
 
     /**
@@ -82,22 +42,16 @@ class SettingsController
      * @param SettingsForm $form
      * @return Response
      */
-    public function ses(Request $request, ValidatorInterface $validator, FlashInterface $flash, SettingsForm $form): Response
+    public function index(Request $request, ValidatorInterface $validator, FlashInterface $flash, SettingsForm $form): Response
     {
         $body = $request->getParsedBody();
-        $brand = $this->brandLocator->getBrand();
 
-        $credentials = $this->credentialsRepository
-            ->withBrand($brand)
-            ->findOne();
-
-        if ($credentials !== null) {
+        if (($credentials = $this->credentialsRepo->findOne()) !== null) {
             $form = $form->withEntity($credentials);
         }
 
         if (($request->getMethod() === Method::POST) && $form->load($body) && $validator->validate($form)->isValid()) {
-            $valueObject = CredentialsValueObject::fromForm($form)
-                ->withBrand($brand);
+            $valueObject = CredentialsValueObject::fromForm($form);
 
             if ($credentials !== null) {
                 $this->credentialsCrudService->update($credentials, $valueObject);
@@ -114,6 +68,6 @@ class SettingsController
             );
         }
 
-        return $this->viewRenderer->render('ses', compact('form'));
+        return $this->viewRenderer->render('index', compact('form'));
     }
 }

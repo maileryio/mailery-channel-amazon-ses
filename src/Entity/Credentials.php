@@ -4,45 +4,52 @@ namespace Mailery\Channel\Email\Amazon\Entity;
 
 use Mailery\Brand\Entity\Brand;
 use Mailery\Common\Entity\RoutableEntityInterface;
+use Mailery\Activity\Log\Entity\LoggableEntityInterface;
+use Mailery\Activity\Log\Entity\LoggableEntityTrait;
+use Mailery\Channel\Email\Amazon\Repository\CredentialsRepository;
+use Mailery\Activity\Log\Mapper\LoggableMapper;
+use Cycle\Annotated\Annotation\Relation\BelongsTo;
+use Cycle\ORM\Entity\Behavior;
+use Cycle\Annotated\Annotation\Entity;
+use Cycle\Annotated\Annotation\Column;
 
-/**
- * @Cycle\Annotated\Annotation\Entity(
- *      table = "channel_credentials_amazon_ses",
- *      repository = "Mailery\Channel\Email\Amazon\Repository\CredentialsRepository",
- *      mapper = "Mailery\Channel\Email\Amazon\Mapper\DefaultMapper"
- * )
- */
-class Credentials implements RoutableEntityInterface
+#[Entity(
+    table: 'channel_credentials_amazon_ses',
+    repository: CredentialsRepository::class,
+    mapper: LoggableMapper::class
+)]
+#[Behavior\CreatedAt(
+    field: 'createdAt',
+    column: 'created_at'
+)]
+#[Behavior\UpdatedAt(
+    field: 'updatedAt',
+    column: 'updated_at'
+)]
+class Credentials implements RoutableEntityInterface, LoggableEntityInterface
 {
-    /**
-     * @Cycle\Annotated\Annotation\Column(type = "primary")
-     * @var int|null
-     */
-    protected $id;
+    use LoggableEntityTrait;
 
-    /**
-     * @Cycle\Annotated\Annotation\Column(type = "string(255)")
-     * @var string
-     */
-    protected $key;
+    #[Column(type: 'primary')]
+    private int $id;
 
-    /**
-     * @Cycle\Annotated\Annotation\Column(type = "string(255)")
-     * @var string
-     */
-    protected $secret;
+    #[Column(type: 'string(255)')]
+    private string $key;
 
-    /**
-     * @Cycle\Annotated\Annotation\Column(type = "string(255)")
-     * @var string
-     */
-    protected $region;
+    #[Column(type: 'string(255)')]
+    private string $secret;
 
-    /**
-     * @Cycle\Annotated\Annotation\Relation\BelongsTo(target = "Mailery\Brand\Entity\Brand", nullable = false)
-     * @var Brand
-     */
-    protected $brand;
+    #[Column(type: 'string(255)')]
+    private string $region;
+
+    #[BelongsTo(target: Brand::class)]
+    private Brand $brand;
+
+    #[Column(type: 'datetime')]
+    private \DateTimeImmutable $createdAt;
+
+    #[Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @return string
