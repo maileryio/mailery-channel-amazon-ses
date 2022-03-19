@@ -33,10 +33,9 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
         <h3 class="h6">Amazon Web Services Credentials</h3>
         <div class="mb-4"></div>
 
-        <?= $field->text($form, 'key')
-                ->autofocus(); ?>
+        <?= $field->text($form, 'key')->autofocus(); ?>
 
-        <?= $field->text($form, 'key'); ?>
+        <?= $field->text($form, 'secret'); ?>
 
         <div class="mb-5"></div>
         <h3 class="h6">Amazon SES Region</h3>
