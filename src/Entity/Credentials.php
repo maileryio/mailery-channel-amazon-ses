@@ -56,7 +56,7 @@ class Credentials implements RoutableEntityInterface, LoggableEntityInterface
      */
     public function __toString(): string
     {
-        return $this->getName();
+        return 'Credentials';
     }
 
     /**

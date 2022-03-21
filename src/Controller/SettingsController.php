@@ -32,7 +32,8 @@ class SettingsController
             ->withControllerName('settings')
             ->withViewPath(dirname(dirname(__DIR__)) . '/views');
 
-        $this->credentialsRepo = $this->credentialsRepo->withBrand($brandLocator->getBrand());
+        $this->credentialsRepo = $credentialsRepo->withBrand($brandLocator->getBrand());
+        $this->credentialsCrudService = $credentialsCrudService->withBrand($brandLocator->getBrand());
     }
 
     /**

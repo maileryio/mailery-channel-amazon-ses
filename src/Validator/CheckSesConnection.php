@@ -27,13 +27,15 @@ class CheckSesConnection extends Rule
      */
     protected function validateValue($value, ValidationContext $context = null): Result
     {
+        $dataSet = $context->getDataSet();
         $validateResult = new Result();
+
         $sesClient = new SesClient([
             'version' => '2010-12-01',
-            'region' => $context->getDataSet()->getAttributeValue('region'),
+            'region' => $dataSet->getAttributeValue('region'),
             'credentials' => new AwsCredentials(
-                $context->getDataSet()->getAttributeValue('key'),
-                $context->getDataSet()->getAttributeValue('secret')
+                $dataSet->getAttributeValue('key'),
+                $dataSet->getAttributeValue('secret')
             ),
             'http' => [
                 'connect_timeout' => 5,

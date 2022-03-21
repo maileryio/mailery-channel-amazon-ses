@@ -35,7 +35,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 
         <?= $field->text($form, 'key')->autofocus(); ?>
 
-        <?= $field->text($form, 'secret'); ?>
+        <?= $field->password($form, 'secret'); ?>
 
         <div class="mb-5"></div>
         <h3 class="h6">Amazon SES Region</h3>
