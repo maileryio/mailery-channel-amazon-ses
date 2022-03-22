@@ -1,12 +1,14 @@
 <?php
 
 use Yiisoft\Router\UrlGeneratorInterface;
-use Mailery\Channel\Email\Amazon\Entity\Credentials;
+use Mailery\Channel\Amazon\SES\Entity\Credentials;
+use Mailery\Channel\Amazon\SES\Model\SesChannelType;
+use Yiisoft\Definitions\Reference;
 
 return [
     'yiisoft/yii-cycle' => [
         'entity-paths' => [
-            '@vendor/maileryio/mailery-channel-email-amazon-ses/src/Entity',
+            '@vendor/maileryio/mailery-channel-amazon-ses/src/Entity',
         ],
     ],
 
@@ -17,6 +19,12 @@ return [
                     Credentials::class,
                 ],
             ],
+        ],
+    ],
+
+    'maileryio/mailery-channel' => [
+        'types' => [
+            Reference::to(SesChannelType::class),
         ],
     ],
 
@@ -45,7 +53,7 @@ return [
         ],
     ],
 
-    'maileryio/mailery-channel-email-amazon-ses' => [
+    'maileryio/mailery-channel-amazon-ses' => [
         'elements' => [
             'us-east-2' => 'US East (Ohio)',
             'us-east-1' => 'US East (N. Virginia)',

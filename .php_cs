@@ -2,8 +2,8 @@
 
 $date = date('Y');
 $header = <<<EOF
-Amazon SES Email channel module for Mailery Platform
-@link      https://github.com/maileryio/mailery-channel-email-amazon-ses
+Amazon SES channel module for Mailery Platform
+@link      https://github.com/maileryio/mailery-channel-amazon-ses
 @package   Mailery\Channel\Email\Amazon
 @license   BSD-3-Clause
 @copyright Copyright (c) {$date}, Mailery (https://mailery.io/)

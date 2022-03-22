@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailery\Channel\Email\Amazon\Repository;
+namespace Mailery\Channel\Amazon\SES\Repository;
 
 use Cycle\ORM\Select\Repository;
 use Mailery\Brand\Entity\Brand;

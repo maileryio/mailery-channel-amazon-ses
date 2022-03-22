@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailery\Channel\Email\Amazon\Model;
+namespace Mailery\Channel\Amazon\SES\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

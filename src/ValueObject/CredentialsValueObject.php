@@ -1,8 +1,8 @@
 <?php
 
-namespace Mailery\Channel\Email\Amazon\ValueObject;
+namespace Mailery\Channel\Amazon\SES\ValueObject;
 
-use Mailery\Channel\Email\Amazon\Form\SettingsForm;
+use Mailery\Channel\Amazon\SES\Form\SettingsForm;
 
 class CredentialsValueObject
 {

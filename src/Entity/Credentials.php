@@ -1,12 +1,12 @@
 <?php
 
-namespace Mailery\Channel\Email\Amazon\Entity;
+namespace Mailery\Channel\Amazon\SES\Entity;
 
 use Mailery\Brand\Entity\Brand;
 use Mailery\Common\Entity\RoutableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityTrait;
-use Mailery\Channel\Email\Amazon\Repository\CredentialsRepository;
+use Mailery\Channel\Amazon\SES\Repository\CredentialsRepository;
 use Mailery\Activity\Log\Mapper\LoggableMapper;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\ORM\Entity\Behavior;

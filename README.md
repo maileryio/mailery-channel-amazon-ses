@@ -1,14 +1,14 @@
-# Amazon SES Email channel module for Mailery Platform
+# Amazon SES channel module for Mailery Platform
 
-**Amazon SES Email channel module for Mailery Platform**
+**Amazon SES channel module for Mailery Platform**
 
-[![Latest Stable Version](https://poser.pugx.org/maileryio/mailery-channel-email-amazon-ses/v/stable)](https://packagist.org/packages/maileryio/mailery-channel-email-amazon-ses)
-[![Total Downloads](https://poser.pugx.org/maileryio/mailery-channel-email-amazon-ses/downloads)](https://packagist.org/packages/maileryio/mailery-channel-email-amazon-ses)
-[![Build Status](https://travis-ci.com/maileryio/mailery-channel-email-amazon-ses.svg?branch=master)](https://travis-ci.com/maileryio/mailery-channel-email-amazon-ses)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/maileryio/mailery-channel-email-amazon-ses.svg)](https://scrutinizer-ci.com/g/maileryio/mailery-channel-email-amazon-ses/)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/maileryio/mailery-channel-email-amazon-ses.svg)](https://scrutinizer-ci.com/g/maileryio/mailery-channel-email-amazon-ses/)
+[![Latest Stable Version](https://poser.pugx.org/maileryio/mailery-channel-amazon-ses/v/stable)](https://packagist.org/packages/maileryio/mailery-channel-amazon-ses)
+[![Total Downloads](https://poser.pugx.org/maileryio/mailery-channel-amazon-ses/downloads)](https://packagist.org/packages/maileryio/mailery-channel-amazon-ses)
+[![Build Status](https://travis-ci.com/maileryio/mailery-channel-amazon-ses.svg?branch=master)](https://travis-ci.com/maileryio/mailery-channel-amazon-ses)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/maileryio/mailery-channel-amazon-ses.svg)](https://scrutinizer-ci.com/g/maileryio/mailery-channel-amazon-ses/)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/maileryio/mailery-channel-amazon-ses.svg)](https://scrutinizer-ci.com/g/maileryio/mailery-channel-amazon-ses/)
 
-Amazon SES Email channel module for Mailery Platform
+Amazon SES channel module for Mailery Platform
 
 ## Installation
 
@@ -17,13 +17,13 @@ The preferred way to install this library is through [composer](http://getcompos
 Either run
 
 ```sh
-php composer.phar require "maileryio/mailery-channel-email-amazon-ses"
+php composer.phar require "maileryio/mailery-channel-amazon-ses"
 ```
 
 or add
 
 ```json
-"maileryio/mailery-channel-email-amazon-ses": "*"
+"maileryio/mailery-channel-amazon-ses": "*"
 ```
 
 to the require section of your composer.json.

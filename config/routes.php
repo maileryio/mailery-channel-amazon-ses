@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Yiisoft\Router\Group;
 use Yiisoft\Router\Route;
-use Mailery\Channel\Email\Amazon\Controller\SettingsController;
+use Mailery\Channel\Amazon\SES\Controller\SettingsController;
 
 return [
     Group::create('/brand/{brandId:\d+}')
