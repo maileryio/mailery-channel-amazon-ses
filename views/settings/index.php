@@ -25,7 +25,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
 <div class="row">
     <div class="col-12 col-xl-4">
         <?= Form::widget()
-                ->action($urlGenerator->generate('/brand/settings/aws'))
+                ->action($url->generate('/brand/settings/aws'))
                 ->csrf($csrf)
                 ->id('channel-email-amazon-ses-form')
                 ->begin(); ?>
