@@ -3,12 +3,12 @@
 namespace Mailery\Channel\Amazon\SES\Model;
 
 use Mailery\Channel\Model\ChannelTypeInterface;
-use Mailery\Channel\Email\Entity\EmailChannel;
+use Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Channel\Entity\Channel;
 
-class SesChannelType implements ChannelTypeInterface
+class ChannelType implements ChannelTypeInterface
 {
     /**
      * @param HandlerInterface $handler
@@ -40,7 +40,7 @@ class SesChannelType implements ChannelTypeInterface
      */
     public function getCreateRouteName(): ?string
     {
-        return '/channel/email/create';
+        return '/channel/amazon-ses/create';
     }
 
     /**
@@ -56,7 +56,7 @@ class SesChannelType implements ChannelTypeInterface
      */
     public function isEntitySameType(Channel $entity): bool
     {
-        return $entity instanceof EmailChannel;
+        return $entity instanceof AmazonSesChannel;
     }
 
     /**
