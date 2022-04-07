@@ -1,10 +1,10 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Service;
+namespace Mailery\Channel\Amazon\Ses\Service;
 
 use Cycle\ORM\ORMInterface;
-use Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel;
-use Mailery\Channel\Amazon\SES\ValueObject\ChannelValueObject;
+use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
+use Mailery\Channel\Amazon\Ses\ValueObject\ChannelValueObject;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
 
 class ChannelCrudService

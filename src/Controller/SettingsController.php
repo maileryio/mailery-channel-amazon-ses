@@ -1,11 +1,11 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Controller;
+namespace Mailery\Channel\Amazon\Ses\Controller;
 
-use Mailery\Channel\Amazon\SES\Form\SettingsForm;
-use Mailery\Channel\Amazon\SES\Service\CredentialsCrudService;
-use Mailery\Channel\Amazon\SES\Repository\CredentialsRepository;
-use Mailery\Channel\Amazon\SES\ValueObject\CredentialsValueObject;
+use Mailery\Channel\Amazon\Ses\Form\SettingsForm;
+use Mailery\Channel\Amazon\Ses\Service\CredentialsCrudService;
+use Mailery\Channel\Amazon\Ses\Repository\CredentialsRepository;
+use Mailery\Channel\Amazon\Ses\ValueObject\CredentialsValueObject;
 use Mailery\Brand\BrandLocatorInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Model;
+namespace Mailery\Channel\Amazon\Ses\Model;
 
 use Mailery\Channel\Model\ChannelTypeInterface;
-use Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel;
+use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Channel\Entity\Channel;

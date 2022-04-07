@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mailery\\Channel\\Amazon\\SES\\": "src"
+            "Mailery\\Channel\\Amazon\\Ses\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mailery\\Channel\\Amazon\\SES\\Tests\\": "tests"
+            "Mailery\\Channel\\Amazon\\Ses\\Tests\\": "tests"
         }
     },
     "scripts": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Entity;
+namespace Mailery\Channel\Amazon\Ses\Entity;
 
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Inheritance\SingleTable;

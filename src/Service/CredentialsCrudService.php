@@ -1,10 +1,10 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Service;
+namespace Mailery\Channel\Amazon\Ses\Service;
 
 use Cycle\ORM\ORMInterface;
-use Mailery\Channel\Amazon\SES\Entity\Credentials;
-use Mailery\Channel\Amazon\SES\ValueObject\CredentialsValueObject;
+use Mailery\Channel\Amazon\Ses\Entity\Credentials;
+use Mailery\Channel\Amazon\Ses\ValueObject\CredentialsValueObject;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
 use Mailery\Brand\Entity\Brand;
 

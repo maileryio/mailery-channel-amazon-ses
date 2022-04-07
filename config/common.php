@@ -1,13 +1,13 @@
 <?php
 
-use Mailery\Channel\Amazon\SES\Model\RegionList;
-use Mailery\Channel\Amazon\SES\Model\ChannelType;
+use Mailery\Channel\Amazon\Ses\Model\RegionList;
+use Mailery\Channel\Amazon\Ses\Model\ChannelType;
 use Psr\Container\ContainerInterface;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
-use Mailery\Channel\Email\Factory\RecipientFactory;
-use Mailery\Channel\Email\Handler\ChannelHandler;
-use Mailery\Channel\Amazon\SES\Repository\CredentialsRepository;
-use Mailery\Channel\Amazon\SES\Entity\Credentials;
+use Mailery\Channel\Smtp\Factory\RecipientFactory;
+use Mailery\Channel\Smtp\Handler\ChannelHandler;
+use Mailery\Channel\Amazon\Ses\Repository\CredentialsRepository;
+use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Cycle\ORM\ORMInterface;
 
 return [

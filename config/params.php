@@ -1,9 +1,9 @@
 <?php
 
 use Yiisoft\Router\UrlGeneratorInterface;
-use Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel;
-use Mailery\Channel\Amazon\SES\Entity\Credentials;
-use Mailery\Channel\Amazon\SES\Model\ChannelType;
+use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
+use Mailery\Channel\Amazon\Ses\Entity\Credentials;
+use Mailery\Channel\Amazon\Ses\Model\ChannelType;
 use Yiisoft\Definitions\Reference;
 
 return [

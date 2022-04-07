@@ -2,14 +2,14 @@
 
 use Mailery\Activity\Log\Widget\ActivityLogLink;
 use Mailery\Icon\Icon;
-use Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel;
+use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Widget\Dataview\DetailView;
 use Mailery\Widget\Link\Link;
 use Mailery\Web\Widget\FlashMessage;
 
 /** @var Yiisoft\Yii\WebView $this */
 /** @var Psr\Http\Message\ServerRequestInterface $request */
-/** @var Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel $channel */
+/** @var Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel $channel */
 /** @var Yiisoft\Yii\View\Csrf $csrf */
 /** @var bool $submitted */
 

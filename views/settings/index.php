@@ -27,7 +27,7 @@ use Yiisoft\Yii\Widgets\ContentDecorator;
         <?= Form::widget()
                 ->action($url->generate('/brand/settings/aws'))
                 ->csrf($csrf)
-                ->id('channel-email-amazon-ses-form')
+                ->id('channel-amazon-ses-form')
                 ->begin(); ?>
 
         <h3 class="h6">Amazon Web Services Credentials</h3>

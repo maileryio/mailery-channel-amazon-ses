@@ -1,9 +1,9 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Form;
+namespace Mailery\Channel\Amazon\Ses\Form;
 
 use Yiisoft\Form\FormModel;
-use Mailery\Channel\Amazon\SES\Entity\AmazonSesChannel;
+use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\HasLength;
 

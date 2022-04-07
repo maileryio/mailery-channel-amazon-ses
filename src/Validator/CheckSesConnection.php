@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailery\Channel\Amazon\SES\Validator;
+namespace Mailery\Channel\Amazon\Ses\Validator;
 
 use Yiisoft\Validator\Result;
 use Yiisoft\Validator\Rule;

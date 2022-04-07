@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Yiisoft\Router\Group;
 use Yiisoft\Router\Route;
-use Mailery\Channel\Amazon\SES\Controller\DefaultController;
-use Mailery\Channel\Amazon\SES\Controller\SettingsController;
+use Mailery\Channel\Amazon\Ses\Controller\DefaultController;
+use Mailery\Channel\Amazon\Ses\Controller\SettingsController;
 
 return [
     Group::create('/channel')

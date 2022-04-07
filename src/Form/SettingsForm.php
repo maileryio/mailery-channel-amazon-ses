@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mailery\Channel\Amazon\SES\Form;
+namespace Mailery\Channel\Amazon\Ses\Form;
 
-use Mailery\Channel\Amazon\SES\Entity\Credentials;
+use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Yiisoft\Form\FormModel;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\InRange;
-use Mailery\Channel\Amazon\SES\Model\RegionList;
-use Mailery\Channel\Amazon\SES\Validator\CheckSesConnection;
+use Mailery\Channel\Amazon\Ses\Model\RegionList;
+use Mailery\Channel\Amazon\Ses\Validator\CheckSesConnection;
 
 class SettingsForm extends FormModel
 {
