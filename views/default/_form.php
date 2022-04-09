@@ -17,6 +17,20 @@ use Yiisoft\Form\Widget\Form;
 
         <?= $field->text($form, 'name')->autofocus(); ?>
 
+        <div class="mb-5"></div>
+        <h3 class="h6">AWS Credentials</h3>
+        <div class="mb-4"></div>
+
+        <?= $field->text($form, 'key'); ?>
+
+        <?= $field->password($form, 'secret'); ?>
+
+        <div class="mb-5"></div>
+        <h3 class="h6">Amazon SES Region</h3>
+        <div class="mb-4"></div>
+
+        <?= $field->select($form, 'region', ['items()' => [$form->getRegionListOptions()]]); ?>
+
         <?= $field->submitButton()
                 ->class('btn btn-primary float-right mt-2')
                 ->value('Save'); ?>

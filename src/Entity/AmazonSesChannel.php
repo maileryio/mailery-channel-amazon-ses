@@ -8,12 +8,40 @@ use Mailery\Channel\Entity\Channel;
 use Mailery\Common\Entity\RoutableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityTrait;
+use Cycle\Annotated\Annotation\Relation\HasOne;
 
-#[Entity]
+/**
+* This doc block required for STI/JTI
+*/
+#[Entity(
+    table: 'channels',
+)]
 #[SingleTable(value: AmazonSesChannel::class)]
 class AmazonSesChannel extends Channel implements RoutableEntityInterface, LoggableEntityInterface
 {
     use LoggableEntityTrait;
+
+    #[HasOne(target: Credentials::class)]
+    private Credentials $credentials;
+
+    /**
+     * @return Credentials
+     */
+    public function getCredentials(): Credentials
+    {
+        return $this->credentials;
+    }
+
+    /**
+     * @param Credentials $credentials
+     * @return self
+     */
+    public function setCredentials(Credentials $credentials): self
+    {
+        $this->credentials = $credentials;
+
+        return $this;
+    }
 
     /**
      * @inheritdoc

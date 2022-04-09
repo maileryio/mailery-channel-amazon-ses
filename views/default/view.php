@@ -17,37 +17,45 @@ $this->setTitle($channel->getName());
 
 ?><div class="row">
     <div class="col-12">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-            <h1 class="h3">Channel #<?= $channel->getId(); ?></h1>
-            <div class="btn-toolbar float-right">
-                <?= Link::widget()
-                    ->csrf($csrf)
-                    ->label(Icon::widget()->name('delete')->options(['class' => 'mr-1'])->render() . ' Delete')
-                    ->method('delete')
-                    ->href($url->generate($channel->getDeleteRouteName(), $channel->getDeleteRouteParams()))
-                    ->confirm('Are you sure?')
-                    ->options([
-                        'class' => 'btn btn-sm btn-danger mx-sm-1 mb-2',
-                    ])
-                    ->encode(false);
-                ?>
-                <a class="btn btn-sm btn-secondary mx-sm-1 mb-2" href="<?= $url->generate($channel->getEditRouteName(), $channel->getEditRouteParams()); ?>">
-                    <?= Icon::widget()->name('pencil')->options(['class' => 'mr-1']); ?>
-                    Update
-                </a>
-                <b-dropdown right size="sm" variant="secondary" class="mb-2">
-                    <template v-slot:button-content>
-                        <?= Icon::widget()->name('settings'); ?>
-                    </template>
-                    <?= ActivityLogLink::widget()
-                        ->tag('b-dropdown-item')
-                        ->label('Activity log')
-                        ->entity($channel); ?>
-                </b-dropdown>
-                <div class="btn-toolbar float-right">
-                    <a class="btn btn-sm btn-outline-secondary mx-sm-1 mb-2" href="<?= $url->generate('/channel/default/index'); ?>">
-                        Back
-                    </a>
+        <div class="card mb-3">
+            <div class="card-body"><div class="flex-between-center row">
+                    <div class="col-md">
+                        <h3 class="mb-0">Channel #<?= $channel->getId(); ?></h1>
+                        <p class="mt-1 mb-0 small"><a href="">S. Mango</a> changed at 12/03/19 14:48</p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-toolbar float-right">
+                            <?= Link::widget()
+                                ->csrf($csrf)
+                                ->label(Icon::widget()->name('delete')->options(['class' => 'mr-1'])->render() . ' Delete')
+                                ->method('delete')
+                                ->href($url->generate($channel->getDeleteRouteName(), $channel->getDeleteRouteParams()))
+                                ->confirm('Are you sure?')
+                                ->options([
+                                    'class' => 'btn btn-sm btn-danger mx-sm-1',
+                                ])
+                                ->encode(false);
+                            ?>
+                            <a class="btn btn-sm btn-secondary mx-sm-1" href="<?= $url->generate($channel->getEditRouteName(), $channel->getEditRouteParams()); ?>">
+                                <?= Icon::widget()->name('pencil')->options(['class' => 'mr-1']); ?>
+                                Update
+                            </a>
+                            <b-dropdown right size="sm" variant="secondary">
+                                <template v-slot:button-content>
+                                    <?= Icon::widget()->name('settings'); ?>
+                                </template>
+                                <?= ActivityLogLink::widget()
+                                    ->tag('b-dropdown-item')
+                                    ->label('Activity log')
+                                    ->entity($channel); ?>
+                            </b-dropdown>
+                            <div class="btn-toolbar float-right">
+                                <a class="btn btn-sm btn-outline-secondary mx-sm-1" href="<?= $url->generate('/channel/default/index'); ?>">
+                                    Back
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,6 +84,24 @@ $this->setTitle($channel->getName());
                     'label' => 'Name',
                     'value' => function (AmazonSesChannel $data, $index) {
                         return $data->getName();
+                    },
+                ],
+                [
+                    'label' => 'AWS Access Key ID',
+                    'value' => function (AmazonSesChannel $data, $index) {
+                        return $data->getCredentials()->getKey();
+                    },
+                ],
+                [
+                    'label' => 'AWS Secret Access Key',
+                    'value' => function (AmazonSesChannel $data, $index) {
+                        return str_repeat('*', strlen($data->getCredentials()->getSecret()));
+                    },
+                ],
+                [
+                    'label' => 'AWS SES region',
+                    'value' => function (AmazonSesChannel $data, $index) {
+                        return $data->getCredentials()->getRegion();
                     },
                 ],
             ]);

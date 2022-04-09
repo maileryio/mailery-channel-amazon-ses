@@ -5,7 +5,7 @@ namespace Mailery\Channel\Amazon\Ses\Controller;
 use Mailery\Channel\Repository\ChannelRepository;
 use Mailery\Channel\Amazon\Ses\Service\ChannelCrudService;
 use Mailery\Channel\Amazon\Ses\Form\ChannelForm;
-use Mailery\Channel\ChannelCrudService\ValueObject\ChannelValueObject;
+use Mailery\Channel\Amazon\Ses\ValueObject\ChannelValueObject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Yiisoft\Yii\View\ViewRenderer;

@@ -2,13 +2,11 @@
 
 namespace Mailery\Channel\Amazon\Ses\Entity;
 
-use Mailery\Brand\Entity\Brand;
 use Mailery\Common\Entity\RoutableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityTrait;
 use Mailery\Channel\Amazon\Ses\Repository\CredentialsRepository;
 use Mailery\Activity\Log\Mapper\LoggableMapper;
-use Cycle\Annotated\Annotation\Relation\BelongsTo;
 use Cycle\ORM\Entity\Behavior;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Column;
@@ -16,7 +14,7 @@ use Cycle\Annotated\Annotation\Column;
 #[Entity(
     table: 'channel_credentials_amazon_ses',
     repository: CredentialsRepository::class,
-    mapper: LoggableMapper::class
+    mapper: LoggableMapper::class,
 )]
 #[Behavior\CreatedAt(
     field: 'createdAt',
@@ -41,9 +39,6 @@ class Credentials implements RoutableEntityInterface, LoggableEntityInterface
 
     #[Column(type: 'string(255)')]
     private string $region;
-
-    #[BelongsTo(target: Brand::class)]
-    private Brand $brand;
 
     #[Column(type: 'datetime')]
     private \DateTimeImmutable $createdAt;
@@ -131,25 +126,6 @@ class Credentials implements RoutableEntityInterface, LoggableEntityInterface
     public function setRegion(string $region): self
     {
         $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * @return Brand
-     */
-    public function getBrand(): Brand
-    {
-        return $this->brand;
-    }
-
-    /**
-     * @param Brand $brand
-     * @return self
-     */
-    public function setBrand(Brand $brand): self
-    {
-        $this->brand = $brand;
 
         return $this;
     }
