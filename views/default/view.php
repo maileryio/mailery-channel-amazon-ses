@@ -5,6 +5,7 @@ use Mailery\Icon\Icon;
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Widget\Dataview\DetailView;
 use Mailery\Widget\Link\Link;
+use Mailery\Web\Widget\DateTimeFormat;
 use Mailery\Web\Widget\FlashMessage;
 
 /** @var Yiisoft\Yii\WebView $this */
@@ -21,7 +22,9 @@ $this->setTitle($channel->getName());
             <div class="card-body"><div class="flex-between-center row">
                     <div class="col-md">
                         <h3 class="mb-0">Channel #<?= $channel->getId(); ?></h1>
-                        <p class="mt-1 mb-0 small"><a href="">S. Mango</a> changed at 12/03/19 14:48</p>
+                        <p class="mt-1 mb-0 small">
+                            Changed at <?= DateTimeFormat::widget()->dateTime($channel->getUpdatedAt())->run() ?>
+                        </p>
                     </div>
                     <div class="col-auto">
                         <div class="btn-toolbar float-right">
