@@ -2,7 +2,7 @@
 
 namespace Mailery\Channel\Amazon\Ses\ValueObject;
 
-use Mailery\Channel\Amazon\Ses\Form\SettingsForm;
+use Mailery\Channel\Amazon\Ses\Form\CredentialsForm;
 
 class CredentialsValueObject
 {
@@ -22,10 +22,10 @@ class CredentialsValueObject
     private string $region;
 
     /**
-     * @param TemplateForm $form
+     * @param CredentialsForm $form
      * @return self
      */
-    public static function fromForm(SettingsForm $form): self
+    public static function fromForm(CredentialsForm $form): self
     {
         $new = new self();
         $new->key = $form->getKey();

@@ -14,17 +14,7 @@ class ChannelValueObject
     /**
      * @var string|null
      */
-    private ?string $key = null;
-
-    /**
-     * @var string|null
-     */
-    private ?string $secret = null;
-
-    /**
-     * @var string|null
-     */
-    private ?string $region = null;
+    private ?string $description = null;
 
     /**
      * @param ChannelForm $form
@@ -34,9 +24,7 @@ class ChannelValueObject
     {
         $new = new self();
         $new->name = $form->getName();
-        $new->key = $form->getKey();
-        $new->secret = $form->getSecret();
-        $new->region = $form->getRegion();
+        $new->description = $form->getDescription();
 
         return $new;
     }
@@ -50,26 +38,10 @@ class ChannelValueObject
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getKey(): string
+    public function getDescription(): ?string
     {
-        return $this->key;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSecret(): string
-    {
-        return $this->secret;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRegion(): string
-    {
-        return $this->region;
+        return $this->description;
     }
 }

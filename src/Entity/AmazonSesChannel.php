@@ -21,13 +21,13 @@ class AmazonSesChannel extends Channel implements RoutableEntityInterface, Logga
 {
     use LoggableEntityTrait;
 
-    #[HasOne(target: Credentials::class)]
-    private Credentials $credentials;
+    #[HasOne(target: Credentials::class, nullable: true)]
+    private ?Credentials $credentials = null;
 
     /**
-     * @return Credentials
+     * @return Credentials|null
      */
-    public function getCredentials(): Credentials
+    public function getCredentials(): ?Credentials
     {
         return $this->credentials;
     }

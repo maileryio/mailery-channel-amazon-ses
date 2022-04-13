@@ -30,31 +30,6 @@ return [
         ],
     ],
 
-    'maileryio/mailery-menu-sidebar' => [
-        'items' => [
-            'settings' => [
-                'activeRouteNames' => [
-                    '/brand/settings/aws',
-                ],
-            ],
-        ],
-    ],
-
-    'maileryio/mailery-brand' => [
-        'settings-menu' => [
-            'items' => [
-                'aws' => [
-                    'label' => static function () {
-                        return 'Amazon Web Services';
-                    },
-                    'url' => static function (UrlGeneratorInterface $urlGenerator) {
-                        return $urlGenerator->generate('/brand/settings/aws');
-                    },
-                ],
-            ],
-        ],
-    ],
-
     'maileryio/mailery-channel-amazon-ses' => [
         'elements' => [
             'us-east-2' => 'US East (Ohio)',

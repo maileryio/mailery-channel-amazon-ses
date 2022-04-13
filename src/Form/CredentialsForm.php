@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mailery\Channel\Amazon\Ses\Form;
 
-use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Yiisoft\Form\FormModel;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\InRange;
+use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Channel\Amazon\Ses\Model\RegionList;
 use Mailery\Channel\Amazon\Ses\Validator\CheckSesConnection;
 
-class SettingsForm extends FormModel
+class CredentialsForm extends FormModel
 {
     /**
      * @var string|null
@@ -38,15 +36,15 @@ class SettingsForm extends FormModel
     }
 
     /**
-     * @param Credentials $credentials
+     * @param AmazonSesChannel $channel
      * @return self
      */
-    public function withEntity(Credentials $credentials): self
+    public function withEntity(AmazonSesChannel $channel): self
     {
         $new = clone $this;
-        $new->key = $credentials->getKey();
-        $new->secret = $credentials->getSecret();
-        $new->region = $credentials->getRegion();
+        $new->key = $channel->getCredentials()->getKey();
+        $new->secret = $channel->getCredentials()->getSecret();
+        $new->region = $channel->getCredentials()->getRegion();
 
         return $new;
     }
@@ -83,7 +81,7 @@ class SettingsForm extends FormModel
         return [
             'key' => 'AWS Access Key ID',
             'secret' => 'AWS Secret Access Key',
-            'region' => 'Your Amazon SES region',
+            'region' => 'Amazon SES region',
         ];
     }
 

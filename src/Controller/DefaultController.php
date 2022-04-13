@@ -4,8 +4,11 @@ namespace Mailery\Channel\Amazon\Ses\Controller;
 
 use Mailery\Channel\Repository\ChannelRepository;
 use Mailery\Channel\Amazon\Ses\Service\ChannelCrudService;
+use Mailery\Channel\Amazon\Ses\Service\CredentialsCrudService;
 use Mailery\Channel\Amazon\Ses\Form\ChannelForm;
+use Mailery\Channel\Amazon\Ses\Form\CredentialsForm;
 use Mailery\Channel\Amazon\Ses\ValueObject\ChannelValueObject;
+use Mailery\Channel\Amazon\Ses\ValueObject\CredentialsValueObject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Yiisoft\Yii\View\ViewRenderer;
@@ -26,13 +29,15 @@ class DefaultController
      * @param UrlGenerator $urlGenerator
      * @param ChannelRepository $channelRepo
      * @param ChannelCrudService $channelCrudService
+     * @param CredentialsCrudService $credentialsCrudService
      */
     public function __construct(
         private ViewRenderer $viewRenderer,
         private ResponseFactory $responseFactory,
         private UrlGenerator $urlGenerator,
         private ChannelRepository $channelRepo,
-        private ChannelCrudService $channelCrudService
+        private ChannelCrudService $channelCrudService,
+        private CredentialsCrudService $credentialsCrudService
     ) {
         $this->viewRenderer = $viewRenderer
             ->withControllerName('default')
@@ -50,7 +55,9 @@ class DefaultController
             return $this->responseFactory->createResponse(Status::NOT_FOUND);
         }
 
-        return $this->viewRenderer->render('view', compact('channel'));
+        $content = $this->viewRenderer->renderPartialAsString('view', compact('channel'));
+
+        return $this->viewRenderer->render('_layout', compact('channel', 'content'));
     }
 
     /**
@@ -106,7 +113,50 @@ class DefaultController
             );
         }
 
-        return $this->viewRenderer->render('edit', compact('form', 'channel'));
+        $content = $this->viewRenderer->renderPartialAsString('edit', compact('form'));
+
+        return $this->viewRenderer->render('_layout', compact('channel', 'content'));
+    }
+
+    /**
+     * @param Request $request
+     * @param CurrentRoute $currentRoute
+     * @param ValidatorInterface $validator
+     * @param FlashInterface $flash
+     * @param CredentialsForm $form
+     * @return Response
+     */
+    public function credentials(Request $request, CurrentRoute $currentRoute, ValidatorInterface $validator, FlashInterface $flash, CredentialsForm $form): Response
+    {
+        $body = $request->getParsedBody();
+        $channelId = $currentRoute->getArgument('id');
+        if (empty($channelId) || ($channel = $this->channelRepo->findByPK($channelId)) === null) {
+            return $this->responseFactory->createResponse(Status::NOT_FOUND);
+        }
+
+        $form = $form->withEntity($channel);
+
+        if (($request->getMethod() === Method::POST) && $form->load($body) && $validator->validate($form)->isValid()) {
+            $valueObject = CredentialsValueObject::fromForm($form);
+
+            if (($credentials = $channel->getCredentials()) !== null) {
+                $this->credentialsCrudService->update($credentials, $valueObject);
+            } else {
+                $this->credentialsCrudService->create($valueObject);
+            }
+
+            $flash->add(
+                'success',
+                [
+                    'body' => 'Data have been saved!',
+                ],
+                true
+            );
+        }
+
+        $content = $this->viewRenderer->renderPartialAsString('credentials', compact('form'));
+
+        return $this->viewRenderer->render('_layout', compact('channel', 'content'));
     }
 
     /**

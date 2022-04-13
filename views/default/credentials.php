@@ -21,12 +21,14 @@ use Yiisoft\Form\Widget\Form;
     <div class="col-12">
         <?= Form::widget()
                 ->csrf($csrf)
-                ->id('channel-form')
+                ->id('channel-credentials-form')
                 ->begin(); ?>
 
-        <?= $field->text($form, 'name')->autofocus(); ?>
+        <?= $field->text($form, 'key')->autofocus(); ?>
 
-        <?= $field->textArea($form, 'description', ['rows()' => [5]]); ?>
+        <?= $field->password($form, 'secret'); ?>
+
+        <?= $field->select($form, 'region', ['items()' => [$form->getRegionListOptions()]]); ?>
 
         <?= $field->submitButton()
                 ->class('btn btn-primary float-right mt-2')

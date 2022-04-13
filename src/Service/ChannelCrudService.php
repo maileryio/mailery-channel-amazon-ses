@@ -4,7 +4,6 @@ namespace Mailery\Channel\Amazon\Ses\Service;
 
 use Cycle\ORM\ORMInterface;
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
-use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Mailery\Channel\Amazon\Ses\ValueObject\ChannelValueObject;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
 
@@ -23,18 +22,12 @@ class ChannelCrudService
      */
     public function create(ChannelValueObject $valueObject): AmazonSesChannel
     {
-        $credentials = (new Credentials())
-            ->setKey($valueObject->getKey())
-            ->setSecret($valueObject->getSecret())
-            ->setRegion($valueObject->getRegion())
-        ;
-
         $channel = (new AmazonSesChannel())
             ->setName($valueObject->getName())
-            ->setCredentials($credentials)
+            ->setDescription($valueObject->getDescription())
         ;
 
-        (new EntityWriter($this->orm))->write([$channel, $credentials]);
+        (new EntityWriter($this->orm))->write([$channel]);
 
         return $channel;
     }
@@ -46,17 +39,12 @@ class ChannelCrudService
      */
     public function update(AmazonSesChannel $channel, ChannelValueObject $valueObject): AmazonSesChannel
     {
-        $credentials = $channel->getCredentials()
-            ->setKey($valueObject->getKey())
-            ->setSecret($valueObject->getSecret())
-            ->setRegion($valueObject->getRegion())
-        ;
-
         $channel = $channel
             ->setName($valueObject->getName())
+            ->setDescription($valueObject->getDescription())
         ;
 
-        (new EntityWriter($this->orm))->write([$credentials, $channel]);
+        (new EntityWriter($this->orm))->write([$channel]);
 
         return $channel;
     }

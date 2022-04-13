@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Yiisoft\Router\Group;
 use Yiisoft\Router\Route;
 use Mailery\Channel\Amazon\Ses\Controller\DefaultController;
-use Mailery\Channel\Amazon\Ses\Controller\SettingsController;
 
 return [
     Group::create('/channel')
@@ -19,15 +18,11 @@ return [
             Route::methods(['GET', 'POST'], '/amazon-ses/edit/{id:\d+}')
                 ->action([DefaultController::class, 'edit'])
                 ->name('/channel/amazon-ses/edit'),
+            Route::methods(['GET', 'POST'], '/amazon-ses/credentials/{id:\d+}')
+                ->action([DefaultController::class, 'credentials'])
+                ->name('/channel/amazon-ses/credentials'),
             Route::delete('/default/amazon-ses/{id:\d+}')
                 ->action([DefaultController::class, 'delete'])
                 ->name('/channel/amazon-ses/delete'),
         ),
-
-    Group::create('/brand/{brandId:\d+}')
-        ->routes(
-            Route::methods(['GET', 'POST'], '/settings/aws')
-                ->name('/brand/settings/aws')
-                ->action([SettingsController::class, 'index'])
-        )
 ];
