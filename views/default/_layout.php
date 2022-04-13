@@ -2,8 +2,6 @@
 
 use Mailery\Activity\Log\Widget\ActivityLogLink;
 use Mailery\Icon\Icon;
-use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
-use Mailery\Widget\Dataview\DetailView;
 use Mailery\Widget\Link\Link;
 use Mailery\Web\Widget\DateTimeFormat;
 use Yiisoft\Yii\Bootstrap5\Nav;
@@ -19,9 +17,10 @@ $this->setTitle($channel->getName());
 ?><div class="row">
     <div class="col-12">
         <div class="card mb-3">
-            <div class="card-body"><div class="flex-between-center row">
+            <div class="card-body">
+                <div class="row">
                     <div class="col-md">
-                        <h3 class="mb-0">Channel #<?= $channel->getId(); ?></h1>
+                        <h4 class="mb-0">Channel #<?= $channel->getId(); ?></h4>
                         <p class="mt-1 mb-0 small">
                             Changed at <?= DateTimeFormat::widget()->dateTime($channel->getUpdatedAt())->run() ?>
                         </p>
@@ -48,11 +47,9 @@ $this->setTitle($channel->getName());
                                     ->label('Activity log')
                                     ->entity($channel); ?>
                             </b-dropdown>
-                            <div class="btn-toolbar float-right">
-                                <a class="btn btn-sm btn-outline-secondary mx-sm-1" href="<?= $url->generate('/channel/default/index'); ?>">
-                                    Back
-                                </a>
-                            </div>
+                            <a class="btn btn-sm btn-outline-secondary mx-sm-1" href="<?= $url->generate('/channel/default/index'); ?>">
+                                Back
+                            </a>
                         </div>
                     </div>
                 </div>

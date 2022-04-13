@@ -134,7 +134,9 @@ class DefaultController
             return $this->responseFactory->createResponse(Status::NOT_FOUND);
         }
 
-        $form = $form->withEntity($channel);
+        if (($credentials = $channel->getCredentials()) !== null) {
+            $form = $form->withEntity($credentials);
+        }
 
         if (($request->getMethod() === Method::POST) && $form->load($body) && $validator->validate($form)->isValid()) {
             $valueObject = CredentialsValueObject::fromForm($form);

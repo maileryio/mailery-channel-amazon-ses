@@ -5,10 +5,11 @@ namespace Mailery\Channel\Amazon\Ses\Form;
 use Yiisoft\Form\FormModel;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\Rule\HasLength;
-use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
+use Mailery\Channel\Entity\Channel;
 
 class ChannelForm extends FormModel
 {
+
     /**
      * @var string|null
      */
@@ -20,16 +21,30 @@ class ChannelForm extends FormModel
     private ?string $description = null;
 
     /**
-     * @param AmazonSesChannel $channel
+     * @var Channel|null
+     */
+    private ?Channel $entity = null;
+
+    /**
+     * @param Channel $entity
      * @return self
      */
-    public function withEntity(AmazonSesChannel $channel): self
+    public function withEntity(Channel $entity): self
     {
         $new = clone $this;
-        $new->name = $channel->getName();
-        $new->description = $channel->getDescription();
+        $new->entity = $entity;
+        $new->name = $entity->getName();
+        $new->description = $entity->getDescription();
 
         return $new;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasEntity(): bool
+    {
+        return $this->entity !== null;
     }
 
     /**

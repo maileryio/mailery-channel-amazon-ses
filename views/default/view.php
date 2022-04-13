@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
 
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
+use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Mailery\Widget\Dataview\DetailView;
+use Yiisoft\Html\Html;
 
 /** @var Yiisoft\Yii\WebView $this */
 /** @var Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel $channel */
@@ -57,35 +59,43 @@ $this->setTitle($channel->getName());
 <div class="mb-2"></div>
 <div class="row">
     <div class="col-12">
-        <?= DetailView::widget()
-            ->data($channel)
-            ->options([
-                'class' => 'table table-top-borderless detail-view',
-            ])
-            ->emptyText('(not set)')
-            ->emptyTextOptions([
-                'class' => 'text-muted',
-            ])
-            ->attributes([
-                [
-                    'label' => 'AWS Access Key ID',
-                    'value' => function (AmazonSesChannel $data, $index) {
-                        return $data->getCredentials()->getKey();
-                    },
-                ],
-                [
-                    'label' => 'AWS Secret Access Key',
-                    'value' => function (AmazonSesChannel $data, $index) {
-                        return str_repeat('*', strlen($data->getCredentials()->getSecret()));
-                    },
-                ],
-                [
-                    'label' => 'AWS SES region',
-                    'value' => function (AmazonSesChannel $data, $index) {
-                        return $data->getCredentials()->getRegion();
-                    },
-                ],
-            ]);
-        ?>
+        <?php if (($credentials = $channel->getCredentials()) !== null) {
+            echo DetailView::widget()
+                ->data($credentials)
+                ->options([
+                    'class' => 'table table-top-borderless detail-view',
+                ])
+                ->emptyText('(not set)')
+                ->emptyTextOptions([
+                    'class' => 'text-muted',
+                ])
+                ->attributes([
+                    [
+                        'label' => 'AWS Access Key ID',
+                        'value' => function (Credentials $data, $index) {
+                            return $data->getKey();
+                        },
+                    ],
+                    [
+                        'label' => 'AWS Secret Access Key',
+                        'value' => function (Credentials $data, $index) {
+                            return str_repeat('*', strlen($data->getSecret()));
+                        },
+                    ],
+                    [
+                        'label' => 'AWS SES region',
+                        'value' => function (Credentials $data, $index) {
+                            return $data->getRegion();
+                        },
+                    ],
+                ]);
+        } else { ?>
+            <div class="alert alert-danger" role="alert">
+                <?= sprintf(
+                    'Amazon AWS credentials are not configured. Please enter the settings on the %s tab.',
+                    Html::a('AWS Credentials', $url->generate('/channel/amazon-ses/credentials', ['id' => $channel->getId()]))
+                ); ?>
+            </div>
+        <?php } ?>
     </div>
 </div>

@@ -3,7 +3,7 @@
 use Mailery\Web\Widget\FlashMessage;
 use Yiisoft\Form\Widget\Form;
 
-/** @var Mailery\Channel\Amazon\Ses\Form\ChannelForm $form */
+/** @var Mailery\Channel\Amazon\Ses\Form\CredentialsForm $form */
 /** @var Yiisoft\Form\Widget\Field $field */
 /** @var Yiisoft\Yii\WebView $this */
 /** @var Yiisoft\Yii\View\Csrf $csrf */
@@ -21,7 +21,7 @@ use Yiisoft\Form\Widget\Form;
     <div class="col-12">
         <?= Form::widget()
                 ->csrf($csrf)
-                ->id('channel-credentials-form')
+                ->id('channel-amazon-ses-credentials-form')
                 ->begin(); ?>
 
         <?= $field->text($form, 'key')->autofocus(); ?>
