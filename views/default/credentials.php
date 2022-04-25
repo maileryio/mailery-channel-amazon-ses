@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Mailery\Web\Widget\FlashMessage;
+use Mailery\Widget\Select\Select;
 use Yiisoft\Form\Widget\Form;
 
 /** @var Mailery\Channel\Amazon\Ses\Form\CredentialsForm $form */
@@ -28,7 +29,15 @@ use Yiisoft\Form\Widget\Form;
 
         <?= $field->password($form, 'secret'); ?>
 
-        <?= $field->select($form, 'region', ['items()' => [$form->getRegionListOptions()]]); ?>
+        <?= $field->select(
+                $form,
+                'region',
+                [
+                    'class' => Select::class,
+                    'items()' => [$form->getRegionListOptions()],
+                    'clearable()' => [false],
+                ]
+            ); ?>
 
         <?= $field->submitButton()
                 ->class('btn btn-primary float-right mt-2')
