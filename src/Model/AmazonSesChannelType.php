@@ -3,12 +3,11 @@
 namespace Mailery\Channel\Amazon\Ses\Model;
 
 use Mailery\Channel\Model\ChannelTypeInterface;
-use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Channel\Entity\Channel;
 
-class ChannelType implements ChannelTypeInterface
+class AmazonSesChannelType implements ChannelTypeInterface
 {
     /**
      * @param HandlerInterface $handler
@@ -18,6 +17,14 @@ class ChannelType implements ChannelTypeInterface
         private HandlerInterface $handler,
         private RecipientIterator $recipientIterator
     ) {}
+
+    /**
+     * @inheritdoc
+     */
+    public function getName(): string
+    {
+        return self::class;
+    }
 
     /**
      * @inheritdoc
@@ -56,7 +63,7 @@ class ChannelType implements ChannelTypeInterface
      */
     public function isEntitySameType(Channel $entity): bool
     {
-        return $entity instanceof AmazonSesChannel;
+        return $entity->getType() === $this->getName();
     }
 
     /**
@@ -74,4 +81,5 @@ class ChannelType implements ChannelTypeInterface
     {
         return $this->recipientIterator;
     }
+
 }

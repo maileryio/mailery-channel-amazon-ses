@@ -9,6 +9,7 @@ use Mailery\Common\Entity\RoutableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityInterface;
 use Mailery\Activity\Log\Entity\LoggableEntityTrait;
 use Cycle\Annotated\Annotation\Relation\HasOne;
+use Mailery\Channel\Amazon\Ses\Model\AmazonSesChannelType;
 
 /**
 * This doc block required for STI/JTI
@@ -16,7 +17,7 @@ use Cycle\Annotated\Annotation\Relation\HasOne;
 #[Entity(
     table: 'channels',
 )]
-#[SingleTable(value: AmazonSesChannel::class)]
+#[SingleTable(value: AmazonSesChannelType::class)]
 class AmazonSesChannel extends Channel implements RoutableEntityInterface, LoggableEntityInterface
 {
     use LoggableEntityTrait;

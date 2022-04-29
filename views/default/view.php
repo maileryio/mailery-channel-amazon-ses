@@ -2,7 +2,7 @@
 
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
-use Mailery\Widget\Dataview\DetailView;
+use Yiisoft\Yii\DataView\DetailView;
 use Yiisoft\Html\Html;
 
 /** @var Yiisoft\Yii\WebView $this */
@@ -23,14 +23,11 @@ $this->setTitle($channel->getName());
 <div class="row">
     <div class="col-12">
         <?= DetailView::widget()
-            ->data($channel)
+            ->model($channel)
             ->options([
                 'class' => 'table table-top-borderless detail-view',
             ])
-            ->emptyText('(not set)')
-            ->emptyTextOptions([
-                'class' => 'text-muted',
-            ])
+            ->emptyValue('<span class="text-muted">(not set)</span>')
             ->attributes([
                 [
                     'label' => 'Name',
@@ -61,14 +58,11 @@ $this->setTitle($channel->getName());
     <div class="col-12">
         <?php if (($credentials = $channel->getCredentials()) !== null) {
             echo DetailView::widget()
-                ->data($credentials)
+                ->model($credentials)
                 ->options([
                     'class' => 'table table-top-borderless detail-view',
                 ])
-                ->emptyText('(not set)')
-                ->emptyTextOptions([
-                    'class' => 'text-muted',
-                ])
+                ->emptyValue('<span class="text-muted">(not set)</span>')
                 ->attributes([
                     [
                         'label' => 'AWS Access Key ID',
@@ -92,7 +86,7 @@ $this->setTitle($channel->getName());
         } else { ?>
             <div class="alert alert-danger" role="alert">
                 <?= sprintf(
-                    'Amazon AWS credentials are not configured. Please enter the settings on the %s tab.',
+                    'Amazon AWS credentials are not configured. Please configure settings on the %s tab.',
                     Html::a('AWS Credentials', $url->generate('/channel/amazon-ses/credentials', ['id' => $channel->getId()]))
                 ); ?>
             </div>

@@ -1,9 +1,8 @@
 <?php
 
-use Yiisoft\Router\UrlGeneratorInterface;
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
-use Mailery\Channel\Amazon\Ses\Model\ChannelType;
+use Mailery\Channel\Amazon\Ses\Model\AmazonSesChannelType;
 use Yiisoft\Definitions\Reference;
 
 return [
@@ -26,7 +25,7 @@ return [
 
     'maileryio/mailery-channel' => [
         'types' => [
-            Reference::to(ChannelType::class),
+            Reference::to(AmazonSesChannelType::class),
         ],
     ],
 

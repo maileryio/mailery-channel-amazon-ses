@@ -1,7 +1,7 @@
 <?php
 
 use Mailery\Channel\Amazon\Ses\Model\RegionList;
-use Mailery\Channel\Amazon\Ses\Model\ChannelType;
+use Mailery\Channel\Amazon\Ses\Model\AmazonSesChannelType;
 use Psr\Container\ContainerInterface;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
 use Mailery\Channel\Smtp\Factory\RecipientFactory;
@@ -15,8 +15,8 @@ return [
         return new RegionList($params['maileryio/mailery-channel-amazon-ses']['elements']);
     },
 
-    ChannelType::class =>  static function (ContainerInterface $container) {
-        return new ChannelType(
+    AmazonSesChannelType::class =>  static function (ContainerInterface $container) {
+        return new AmazonSesChannelType(
             $container->get(ChannelHandler::class),
             new RecipientIterator(new RecipientFactory())
         );
