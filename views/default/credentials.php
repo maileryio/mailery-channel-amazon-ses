@@ -3,6 +3,7 @@
 use Mailery\Web\Widget\FlashMessage;
 use Mailery\Widget\Select\Select;
 use Yiisoft\Form\Widget\Form;
+use Yiisoft\Yii\Widgets\ContentDecorator;
 
 /** @var Mailery\Channel\Amazon\Ses\Form\CredentialsForm $form */
 /** @var Yiisoft\Form\Widget\Field $field */
@@ -10,6 +11,12 @@ use Yiisoft\Form\Widget\Form;
 /** @var Yiisoft\Yii\View\Csrf $csrf */
 
 ?>
+
+<?= ContentDecorator::widget()
+    ->viewFile('@vendor/maileryio/mailery-channel-amazon-ses/views/default/_layout.php')
+    ->parameters(compact('channel', 'csrf'))
+    ->begin(); ?>
+
 <div class="mb-2"></div>
 <div class="row">
     <div class="col-12">
@@ -46,3 +53,5 @@ use Yiisoft\Form\Widget\Form;
         <?= Form::end(); ?>
     </div>
 </div>
+
+<?= ContentDecorator::end() ?>

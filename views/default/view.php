@@ -2,6 +2,7 @@
 
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
+use Yiisoft\Yii\Widgets\ContentDecorator;
 use Yiisoft\Yii\DataView\DetailView;
 use Yiisoft\Html\Html;
 
@@ -11,6 +12,11 @@ use Yiisoft\Html\Html;
 $this->setTitle($channel->getName());
 
 ?>
+
+<?= ContentDecorator::widget()
+    ->viewFile('@vendor/maileryio/mailery-channel-amazon-ses/views/default/_layout.php')
+    ->parameters(compact('channel', 'csrf'))
+    ->begin(); ?>
 
 <div class="mb-2"></div>
 <div class="row">
@@ -93,3 +99,5 @@ $this->setTitle($channel->getName());
         <?php } ?>
     </div>
 </div>
+
+<?= ContentDecorator::end() ?>
