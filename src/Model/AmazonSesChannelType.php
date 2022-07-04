@@ -3,6 +3,7 @@
 namespace Mailery\Channel\Amazon\Ses\Model;
 
 use Mailery\Channel\Model\ChannelTypeInterface;
+use Mailery\Campaign\Recipient\Factory\IdentificatorFactoryInterface as IdentificatorFactory;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Channel\Entity\Channel;
@@ -12,10 +13,12 @@ class AmazonSesChannelType implements ChannelTypeInterface
     /**
      * @param HandlerInterface $handler
      * @param RecipientIterator $recipientIterator
+     * @param IdentificatorFactory $identifictorFactory
      */
     public function __construct(
         private HandlerInterface $handler,
-        private RecipientIterator $recipientIterator
+        private RecipientIterator $recipientIterator,
+        private IdentificatorFactory $identifictorFactory
     ) {}
 
     /**
@@ -80,6 +83,14 @@ class AmazonSesChannelType implements ChannelTypeInterface
     public function getRecipientIterator(): RecipientIterator
     {
         return $this->recipientIterator;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIdentificatorFactory(): IdentificatorFactory
+    {
+        return $this->identifictorFactory;
     }
 
 }
