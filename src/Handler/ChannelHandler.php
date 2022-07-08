@@ -39,8 +39,6 @@ class ChannelHandler implements HandlerInterface
         $campaign = $sendout->getCampaign();
         /** @var EmailSender $sender */
         $sender = $campaign->getSender();
-        /** @var EmailTemplate $template */
-        $template = $campaign->getTemplate();
 
         $messenger = $this->messengerFactory
             ->withChannel($sender->getChannel())
@@ -48,7 +46,7 @@ class ChannelHandler implements HandlerInterface
         ;
 
         $message = $this->messageFactory
-            ->withCampaign($sendout->getCampaign())
+            ->withCampaign($campaign)
             ->withRecipient($recipient)
             ->create()
         ;

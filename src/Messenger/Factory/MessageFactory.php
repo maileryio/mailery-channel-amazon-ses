@@ -85,6 +85,7 @@ class MessageFactory implements MessageFactoryInterface
     {
         /** @var MessageInterface $message */
         $message = new $this->class();
+
         return $message
             ->withRecipient($this->recipient)
             ->withSender($this->sender)
