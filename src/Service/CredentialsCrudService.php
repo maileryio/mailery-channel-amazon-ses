@@ -2,7 +2,7 @@
 
 namespace Mailery\Channel\Amazon\Ses\Service;
 
-use Cycle\ORM\ORMInterface;
+use Cycle\ORM\EntityManagerInterface;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Mailery\Channel\Amazon\Ses\ValueObject\CredentialsValueObject;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
@@ -16,10 +16,10 @@ class CredentialsCrudService
     private Brand $brand;
 
     /**
-     * @param ORMInterface $orm
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        private ORMInterface $orm
+        private EntityManagerInterface $entityManager
     ) {}
 
     /**
@@ -47,7 +47,7 @@ class CredentialsCrudService
             ->setRegion($valueObject->getRegion())
         ;
 
-        (new EntityWriter($this->orm))->write([$credentials]);
+        (new EntityWriter($this->entityManager))->write([$credentials]);
 
         return $credentials;
     }
@@ -65,7 +65,7 @@ class CredentialsCrudService
             ->setRegion($valueObject->getRegion())
         ;
 
-        (new EntityWriter($this->orm))->write([$credentials]);
+        (new EntityWriter($this->entityManager))->write([$credentials]);
 
         return $credentials;
     }
@@ -76,6 +76,6 @@ class CredentialsCrudService
      */
     public function delete(Credentials $credentials): void
     {
-        (new EntityWriter($this->orm))->delete([$credentials]);
+        (new EntityWriter($this->entityManager))->delete([$credentials]);
     }
 }

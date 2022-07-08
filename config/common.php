@@ -1,6 +1,6 @@
 <?php
 
-use Cycle\ORM\ORMInterface;
+use Cycle\ORM\EntityManagerInterface;
 use Mailery\Channel\Amazon\Ses\Model\RegionList;
 use Mailery\Channel\Amazon\Ses\Model\AmazonSesChannelType;
 use Mailery\Campaign\Recipient\Model\RecipientIterator;
@@ -21,9 +21,9 @@ return [
 
     ChannelHandler::class => static function (ContainerInterface $container) {
         return new ChannelHandler(
-            $container->get(ORMInterface::class),
             new MessageFactory(EmailMessage::class),
-            new MessengerFactory($container)
+            new MessengerFactory($container),
+            $container->get(EntityManagerInterface::class)
         );
     },
 
