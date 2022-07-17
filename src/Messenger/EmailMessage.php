@@ -5,7 +5,7 @@ namespace Mailery\Channel\Amazon\Ses\Messenger;
 use Mailery\Campaign\Entity\Recipient;
 use Mailery\Sender\Entity\Sender;
 use Mailery\Template\Entity\Template;
-use Mailery\Channel\Messenger\MessageInterface;
+use Mailery\Messenger\MessageInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 

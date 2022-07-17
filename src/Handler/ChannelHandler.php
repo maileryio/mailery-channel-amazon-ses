@@ -2,6 +2,7 @@
 
 namespace Mailery\Channel\Amazon\Ses\Handler;
 
+use Cycle\ORM\EntityManagerInterface;
 use Mailery\Campaign\Entity\Campaign;
 use Mailery\Campaign\Entity\Sendout;
 use Mailery\Campaign\Entity\Recipient;
@@ -9,9 +10,8 @@ use Mailery\Messenger\Exception\MessengerException;
 use Mailery\Messenger\Factory\MessageFactoryInterface;
 use Mailery\Messenger\Factory\MessengerFactoryInterface;
 use Mailery\Channel\Handler\HandlerInterface;
-use Cycle\ORM\EntityManagerInterface;
-use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
 use Mailery\Sender\Email\Entity\EmailSender;
+use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
 
 class ChannelHandler implements HandlerInterface
 {
@@ -35,7 +35,7 @@ class ChannelHandler implements HandlerInterface
     /**
      * @inheritdoc
      */
-    public function withSuppressErrors(bool $suppressErrors): bool
+    public function withSuppressErrors(bool $suppressErrors): self
     {
         $new = clone $this;
         $new->suppressErrors = $suppressErrors;

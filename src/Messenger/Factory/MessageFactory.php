@@ -2,8 +2,8 @@
 
 namespace Mailery\Channel\Amazon\Ses\Messenger\Factory;
 
-use Mailery\Channel\Messenger\MessageInterface;
-use Mailery\Channel\Messenger\Factory\MessageFactoryInterface;
+use Mailery\Messenger\MessageInterface;
+use Mailery\Messenger\Factory\MessageFactoryInterface;
 use Mailery\Campaign\Entity\Campaign;
 use Mailery\Campaign\Entity\Recipient;
 use Mailery\Sender\Entity\Sender;

@@ -3,8 +3,10 @@
 namespace Mailery\Channel\Amazon\Ses\Messenger;
 
 use Symfony\Component\Mailer\Mailer;
-use Mailery\Channel\Messenger\MessageInterface;
-use Mailery\Channel\Messenger\MessengerInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Mailery\Messenger\MessageInterface;
+use Mailery\Messenger\MessengerInterface;
+use Mailery\Messenger\Exception\MessengerException;
 
 class EmailMessenger implements MessengerInterface
 {
@@ -20,6 +22,16 @@ class EmailMessenger implements MessengerInterface
      */
     public function send(MessageInterface $message): void
     {
-        $this->mailer->send($message->getRawMessage());
+        try {
+            $this->mailer->send($message->getRawMessage());
+        } catch (\Exception $e) {
+            $error = new MessengerException($e->getMessage(), $e->getCode(), $e);
+
+            if ($e instanceof TransportExceptionInterface) {
+                $error->setUserMessage($e->getMessage());
+            }
+
+            throw $error;
+        }
     }
 }

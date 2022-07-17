@@ -12,6 +12,7 @@ use Mailery\Channel\Amazon\Ses\Messenger\Factory\MessengerFactory;
 use Mailery\Channel\Amazon\Ses\Handler\ChannelHandler;
 use Mailery\Channel\Amazon\Ses\Repository\CredentialsRepository;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
+use Mailery\Subscriber\Repository\SubscriberRepository;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -30,7 +31,10 @@ return [
     AmazonSesChannelType::class => static function (ContainerInterface $container) {
         return new AmazonSesChannelType(
             $container->get(ChannelHandler::class),
-            new RecipientIterator(new RecipientFactory()),
+            new RecipientIterator(
+                new RecipientFactory(),
+                $container->get(SubscriberRepository::class)
+            ),
             new IdentificatorFactory()
         );
     },

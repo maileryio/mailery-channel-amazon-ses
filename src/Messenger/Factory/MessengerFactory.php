@@ -2,8 +2,8 @@
 
 namespace Mailery\Channel\Amazon\Ses\Messenger\Factory;
 
-use Mailery\Channel\Messenger\MessengerInterface;
-use Mailery\Channel\Messenger\Factory\MessengerFactoryInterface;
+use Mailery\Messenger\MessengerInterface;
+use Mailery\Messenger\Factory\MessengerFactoryInterface;
 use Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel as Channel;
 use Mailery\Channel\Amazon\Ses\Messenger\EmailMessenger;
 use Yiisoft\Factory\Factory;
