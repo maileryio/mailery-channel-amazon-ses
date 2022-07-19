@@ -23,6 +23,7 @@
         "aws/aws-sdk-php": "^3.173",
         "foxy/foxy": "^1.0",
         "maileryio/mailery-channel": "dev-master",
+        "maileryio/mailery-channel-smtp": "dev-master",
         "maileryio/mailery-messenger": "dev-master",
         "maileryio/widget-select": "dev-master"
     },
