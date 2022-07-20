@@ -14,6 +14,7 @@ use Mailery\Channel\Amazon\Ses\Repository\CredentialsRepository;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Mailery\Subscriber\Repository\SubscriberRepository;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 return [
     RegionList::class => static function () use($params) {
@@ -24,6 +25,7 @@ return [
         return new ChannelHandler(
             new MessageFactory(EmailMessage::class),
             new MessengerFactory($container),
+            $container->get(MessageBusInterface::class),
             $container->get(EntityManagerInterface::class)
         );
     },
