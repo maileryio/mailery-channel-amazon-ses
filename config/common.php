@@ -21,29 +21,24 @@ return [
         return new RegionList($params['maileryio/mailery-channel-amazon-ses']['elements']);
     },
 
-    ChannelHandler::class => static function (ContainerInterface $container) {
+    ChannelHandler::class => static function (ContainerInterface $container, MessageBusInterface $bus, EntityManagerInterface $entityManager) {
         return new ChannelHandler(
             new MessageFactory(EmailMessage::class),
             new MessengerFactory($container),
-            $container->get(MessageBusInterface::class),
-            $container->get(EntityManagerInterface::class)
+            $bus,
+            $entityManager
         );
     },
 
-    AmazonSesChannelType::class => static function (ContainerInterface $container) {
+    AmazonSesChannelType::class => static function (ChannelHandler $handler, SubscriberRepository $subscriberRepo) {
         return new AmazonSesChannelType(
-            $container->get(ChannelHandler::class),
-            new RecipientIterator(
-                new RecipientFactory(),
-                $container->get(SubscriberRepository::class)
-            ),
+            $handler,
+            new RecipientIterator(new RecipientFactory(), $subscriberRepo),
             new IdentificatorFactory()
         );
     },
 
-    CredentialsRepository::class => static function (ContainerInterface $container) {
-        return $container
-            ->get(ORMInterface::class)
-            ->getRepository(Credentials::class);
+    CredentialsRepository::class => static function (ORMInterface $orm) {
+        return $orm->getRepository(Credentials::class);
     },
 ];
