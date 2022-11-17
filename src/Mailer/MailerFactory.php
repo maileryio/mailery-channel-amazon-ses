@@ -3,6 +3,7 @@
 namespace Mailery\Channel\Amazon\Ses\Mailer;
 
 use Mailery\Channel\Entity\Channel;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Transport\Dsn;
@@ -13,9 +14,11 @@ class MailerFactory
 
     /**
      * @param TransportFactoryInterface $transportFactory
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
-        private TransportFactoryInterface $transportFactory
+        private TransportFactoryInterface $transportFactory,
+        private EventDispatcherInterface $eventDispatcher
     ) {}
 
     /**
@@ -38,7 +41,9 @@ class MailerFactory
         );
 
         return new Mailer(
-            $this->transportFactory->create($dsn)
+            $this->transportFactory->create($dsn),
+            null,
+            $this->eventDispatcher
         );
     }
 
