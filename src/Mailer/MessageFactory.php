@@ -6,7 +6,7 @@ use Mailery\Campaign\Entity\Campaign;
 use Mailery\Campaign\Entity\Recipient;
 use Mailery\Sender\Email\Entity\EmailSender;
 use Mailery\Template\Email\Entity\EmailTemplate;
-use Mailery\Template\Renderer\Context;
+use Mailery\Template\Email\Renderer\Context;
 use Mailery\Template\Renderer\BodyRendererInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -16,13 +16,11 @@ class MessageFactory
 
     /**
      * @param Email $message
-     * @param BodyRendererInterface $bodyRenderer
-     * @param string $charset
+     * @param BodyRendererInterface $renderer
      */
     public function __construct(
         private Email $message,
-        private BodyRendererInterface $renderer,
-        private string $charset = 'utf-8'
+        private BodyRendererInterface $renderer
     ) {}
 
     /**
@@ -43,8 +41,8 @@ class MessageFactory
             ->to(new Address($recipient->getIdentifier(), $recipient->getName()))
             ->replyTo(new Address($sender->getReplyEmail(), $sender->getReplyName()))
             ->subject($campaign->getName())
-            ->text($template->getTextContent(), $this->charset)
-            ->html($template->getHtmlContent(), $this->charset);
+            ->text($template->getTextContent())
+            ->html($template->getHtmlContent());
 
         $this->renderer
             ->withContext(new Context($campaign, $recipient))

@@ -38,17 +38,17 @@ use Yiisoft\Form\Field;
         <?= Field::password($form, 'secret'); ?>
 
         <?= Field::input(
-                Select::class,
-                $form,
-                'region',
-                [
-                    'optionsData()' => [$form->getRegionListOptions()],
-                    'clearable()' => [false],
-                ]
-            ); ?>
+            Select::class,
+            $form,
+            'region',
+            [
+                'optionsData()' => [$form->getRegionListOptions()],
+                'clearable()' => [false],
+            ]
+        ); ?>
 
         <?= Field::submitButton()
-                ->content('Save changes'); ?>
+            ->content('Save changes'); ?>
 
         <?= Form::tag()->close(); ?>
     </div>

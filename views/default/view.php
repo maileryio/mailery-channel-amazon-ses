@@ -5,6 +5,7 @@ use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Yiisoft\Yii\Widgets\ContentDecorator;
 use Yiisoft\Yii\DataView\DetailView;
 use Yiisoft\Html\Html;
+use Mailery\Web\Vue\Directive;
 
 /** @var Yiisoft\Yii\WebView $this */
 /** @var Mailery\Channel\Amazon\Ses\Entity\AmazonSesChannel $channel */
@@ -38,13 +39,13 @@ $this->setTitle($channel->getName());
                 [
                     'label' => 'Name',
                     'value' => function (AmazonSesChannel $data, $index) {
-                        return $data->getName();
+                        return Directive::pre($data->getName());
                     },
                 ],
                 [
                     'label' => 'Description',
                     'value' => function (AmazonSesChannel $data, $index) {
-                        return $data->getDescription();
+                        return Directive::pre($data->getDescription());
                     },
                 ],
             ]);
@@ -85,7 +86,7 @@ $this->setTitle($channel->getName());
                     [
                         'label' => 'AWS SES region',
                         'value' => function (Credentials $data, $index) {
-                            return $data->getRegion();
+                            return Directive::pre($data->getRegion());
                         },
                     ],
                 ]);
