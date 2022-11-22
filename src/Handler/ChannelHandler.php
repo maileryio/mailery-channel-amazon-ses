@@ -8,9 +8,9 @@ use Mailery\Campaign\Entity\Sendout;
 use Mailery\Campaign\Entity\Recipient;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Sender\Email\Entity\EmailSender;
+use Mailery\Channel\Smtp\Mailer\MailerFactory;
+use Mailery\Channel\Smtp\Mailer\MessageFactory;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
-use Mailery\Channel\Amazon\Ses\Mailer\MailerFactory;
-use Mailery\Channel\Amazon\Ses\Mailer\MessageFactory;
 
 class ChannelHandler implements HandlerInterface
 {
