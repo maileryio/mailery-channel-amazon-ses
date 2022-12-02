@@ -79,22 +79,6 @@ class AmazonSesChannel extends Channel implements RoutableEntityInterface, Logga
     /**
      * @inheritdoc
      */
-    public function getPreviewRouteName(): ?string
-    {
-        return '/channel/amazon-ses/view';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getPreviewRouteParams(): array
-    {
-        return ['id' => $this->getId()];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getEditRouteName(): ?string
     {
         return '/channel/amazon-ses/edit';
