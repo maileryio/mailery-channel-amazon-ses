@@ -62,14 +62,17 @@ class ChannelHandler implements HandlerInterface
         (new EntityWriter($this->entityManager))->write([$recipient]);
 
         try {
-            $mailer = $this->mailerFactory->create($sender->getChannel());
             $message = $this->messageFactory
                 ->withContext(new Context([
                     'url' => new WrappedUrlGenerator($this->urlGenerator, $recipient),
                 ]))
                 ->create($campaign, $recipient);
 
-            $mailer->send($message);
+            $sentMessage = $this->mailerFactory
+                ->createTransport($sender->getChannel())
+                ->send($message);
+
+            $recipient->setMessageId($sentMessage->getMessageId());
         } catch (\Exception $e) {
             $recipient->setError($e->getMessage());
             throw $e;
