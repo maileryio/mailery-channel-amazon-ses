@@ -61,11 +61,15 @@ class ChannelHandler implements HandlerInterface
         (new EntityWriter($this->entityManager))->write([$recipient]);
 
         try {
+            $wrappedUrlGenerator = $this->wrappedUrlGenerator->withRecipient($recipient);
+
+            if (($subscriber = $recipient->getSubscriber()) !== null) {
+                $wrappedUrlGenerator = $wrappedUrlGenerator->withSubscriber($subscriber);
+            }
+
             $message = $this->messageFactory
                 ->withContext(new Context([
-                    'url' => $this->wrappedUrlGenerator
-                        ->withRecipient($recipient)
-                        ->withSubscriber($recipient->getSubscriber()),
+                    'url' => $wrappedUrlGenerator,
                 ]))
                 ->create($recipient);
 
