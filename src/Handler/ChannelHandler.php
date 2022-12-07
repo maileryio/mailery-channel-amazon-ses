@@ -6,14 +6,13 @@ use Cycle\ORM\EntityManagerInterface;
 use Mailery\Campaign\Entity\Campaign;
 use Mailery\Campaign\Entity\Sendout;
 use Mailery\Campaign\Entity\Recipient;
+use Mailery\Campaign\Renderer\WrappedUrlGenerator;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Sender\Email\Entity\EmailSender;
 use Mailery\Channel\Smtp\Mailer\MailerFactory;
 use Mailery\Channel\Smtp\Mailer\MessageFactory;
 use Mailery\Template\Renderer\Context;
-use Mailery\Template\Email\Renderer\WrappedUrlGenerator;
 use Yiisoft\Yii\Cycle\Data\Writer\EntityWriter;
-use Yiisoft\Router\UrlGeneratorInterface;
 
 class ChannelHandler implements HandlerInterface
 {
@@ -27,13 +26,13 @@ class ChannelHandler implements HandlerInterface
      * @param MailerFactory $mailerFactory
      * @param MessageFactory $messageFactory
      * @param EntityManagerInterface $entityManager
-     * @param UrlGeneratorInterface $urlGenerator
+     * @param WrappedUrlGenerator $wrappedUrlGenerator
      */
     public function __construct(
         private MailerFactory $mailerFactory,
         private MessageFactory $messageFactory,
         private EntityManagerInterface $entityManager,
-        private UrlGeneratorInterface $urlGenerator
+        private WrappedUrlGenerator $wrappedUrlGenerator
     ) {}
 
     /**
@@ -64,9 +63,11 @@ class ChannelHandler implements HandlerInterface
         try {
             $message = $this->messageFactory
                 ->withContext(new Context([
-                    'url' => new WrappedUrlGenerator($this->urlGenerator, $recipient),
+                    'url' => $this->wrappedUrlGenerator
+                        ->withRecipient($recipient)
+                        ->withSubscriber($recipient->getSubscriber()),
                 ]))
-                ->create($campaign, $recipient);
+                ->create($recipient);
 
             $sentMessage = $this->mailerFactory
                 ->createTransport($sender->getChannel())
