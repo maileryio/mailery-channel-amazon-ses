@@ -12,7 +12,7 @@ use Mailery\Channel\Amazon\Ses\Handler\ChannelHandler;
 use Mailery\Channel\Amazon\Ses\Repository\CredentialsRepository;
 use Mailery\Channel\Amazon\Ses\Entity\Credentials;
 use Mailery\Subscriber\Repository\SubscriberRepository;
-use Symfony\Component\Mime\Email;
+use Mailery\Channel\Smtp\Mailer\EmailMessage;
 use Symfony\Component\Mailer\Bridge\Amazon\Transport\SesTransportFactory;
 use Yiisoft\Definitions\Reference;
 use Yiisoft\Definitions\DynamicReference;
@@ -43,7 +43,7 @@ return [
             'messageFactory' => DynamicReference::to([
                 'class' => MessageFactory::class,
                 '__construct()' => [
-                    'message' => Reference::to(Email::class),
+                    'message' => Reference::to(EmailMessage::class),
                 ],
             ]),
         ],

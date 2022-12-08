@@ -60,33 +60,43 @@ class ChannelHandler implements HandlerInterface
         $recipient->setSendout($sendout);
         (new EntityWriter($this->entityManager))->write([$recipient]);
 
+        $message = $this->messageFactory
+            ->withContext($this->createContext($recipient))
+            ->create($recipient);
+
+        $recipient->setMessageContext($message->getContext());
+
         try {
-            $wrappedUrlGenerator = $this->wrappedUrlGenerator->withRecipient($recipient);
-
-            if (($subscriber = $recipient->getSubscriber()) !== null) {
-                $wrappedUrlGenerator = $wrappedUrlGenerator->withSubscriber($subscriber);
-            }
-
-            $message = $this->messageFactory
-                ->withContext(new Context([
-                    'url' => $wrappedUrlGenerator,
-                ]))
-                ->create($recipient);
-
             $sentMessage = $this->mailerFactory
                 ->createTransport($sender->getChannel())
                 ->send($message);
 
+            $recipient->setSent(true);
             $recipient->setMessageId($sentMessage->getMessageId());
         } catch (\Exception $e) {
             $recipient->setError($e->getMessage());
             throw $e;
         } finally {
-            $recipient->setSent(true);
             (new EntityWriter($this->entityManager))->write([$recipient]);
         }
 
         return true;
+    }
+
+    /**
+     * @param Recipient $recipient
+     * @return Context
+     */
+    private function createContext(Recipient $recipient): Context
+    {
+        $wrappedUrlGenerator = $this->wrappedUrlGenerator->withRecipient($recipient);
+        if (($subscriber = $recipient->getSubscriber()) !== null) {
+            $wrappedUrlGenerator = $wrappedUrlGenerator->withSubscriber($subscriber);
+        }
+
+        return new Context([
+            'url' => $wrappedUrlGenerator,
+        ]);
     }
 
 }
