@@ -4,7 +4,6 @@ namespace Mailery\Channel\Amazon\Ses\Handler;
 
 use Cycle\ORM\EntityManagerInterface;
 use Mailery\Campaign\Entity\Sendout;
-use Mailery\Campaign\Entity\Recipient;
 use Mailery\Campaign\Renderer\WrappedUrlGenerator;
 use Mailery\Channel\Handler\HandlerInterface;
 use Mailery\Channel\Smtp\Mailer\MailerFactory;
@@ -50,9 +49,9 @@ class ChannelHandler implements HandlerInterface
     /**
      * @inheritdoc
      */
-    public function handle(Sendout $sendout, Recipient $recipient): bool
+    public function handle(Sendout $sendout, \Iterator|array $recipients): bool
     {
-        return $this->handler->handle($sendout, $recipient);
+        return $this->handler->handle($sendout, $recipients);
     }
 
 }
